@@ -12,29 +12,29 @@ vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 albedo_color = Color( 0.454902, 0.2, 0.2, 1 )
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=2]
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="CylinderMesh" id=6]
+top_radius = 0.001
+bottom_radius = 0.001
+height = 0.1
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.368627, 0.690196, 0.223529, 1 )
+
+[sub_resource type="Environment" id=3]
 background_mode = 1
 background_color = Color( 0.631373, 0.627451, 0.658824, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
-[sub_resource type="CylinderMesh" id=3]
+[sub_resource type="CylinderMesh" id=4]
 top_radius = 0.001
 bottom_radius = 0.01
 height = 0.1
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.427451, 0.180392, 0.180392, 1 )
-
-[sub_resource type="CylinderMesh" id=5]
-top_radius = 0.001
-bottom_radius = 0.01
-height = 0.1
-
-[sub_resource type="SpatialMaterial" id=6]
-albedo_color = Color( 0.368627, 0.690196, 0.223529, 1 )
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
@@ -85,7 +85,7 @@ mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="CameraGimbal " type="Spatial" parent="."]
 script = ExtResource( 5 )
@@ -97,8 +97,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
 projection = 1
 current = true
 size = 0.1
-near = 0.01
-far = 20.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal /InnerGimbal/Camera"]
 transform = Transform( 0.866025, 0.109651, -0.487829, 0, 0.975657, 0.219301, 0.5, -0.189921, 0.844944, -1.96886, 1.12096, 0.575229 )
@@ -114,22 +112,22 @@ shadow_enabled = true
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 
+[node name="coin" type="Position3D" parent="CameraGimbal /InnerGimbal/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.82052 )
+
+[node name="MeshInstance" type="MeshInstance" parent="CameraGimbal /InnerGimbal/Camera/coin"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
+environment = SubResource( 3 )
 
 [node name="centre" type="Position3D" parent="."]
 visible = false
 
 [node name="MeshInstance" type="MeshInstance" parent="centre"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
-
-[node name="coin" type="Position3D" parent="."]
-visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="coin"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
