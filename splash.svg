@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="245.75999"
+   width="437.12"
+   inkscape:export-ydpi="3.2542372"
+   inkscape:export-xdpi="3.2542372"
+   inkscape:export-filename="D:\DEV\CAO-DAO\cube.png"
+   inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"
+   sodipodi:docname="splash.svg"
+   xml:space="preserve"
+   viewBox="0 0 437.12 245.75999"
+   y="0px"
+   x="0px"
+   id="Capa_1"
+   version="1.1"><metadata
+   id="metadata43"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs41" /><sodipodi:namedview
+   fit-margin-bottom="0"
+   fit-margin-right="0"
+   fit-margin-left="0"
+   fit-margin-top="0"
+   inkscape:current-layer="Capa_1"
+   inkscape:window-maximized="1"
+   inkscape:window-y="-8"
+   inkscape:window-x="-8"
+   inkscape:cy="156.15813"
+   inkscape:cx="359.94419"
+   inkscape:zoom="2.6101695"
+   showgrid="false"
+   id="namedview39"
+   inkscape:window-height="1377"
+   inkscape:window-width="2560"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0"
+   guidetolerance="10"
+   gridtolerance="10"
+   objecttolerance="10"
+   borderopacity="1"
+   bordercolor="#666666"
+   pagecolor="#ffffff" />
+
+
+<rect
+   ry="7.4393353"
+   y="0"
+   x="0"
+   height="245.75999"
+   width="437.12"
+   id="rect889"
+   style="fill:#2b2d30;fill-opacity:1;stroke:none;stroke-width:11.8505;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" /><g
+   transform="matrix(0.17211919,0,0,0.17211919,74.160649,81.685192)"
+   id="g887"><polygon
+     style="fill:#5bf09b;fill-opacity:1"
+     points="4,96 236,0 468,96 236,192 "
+     id="polygon2" /><polygon
+     style="fill:#6e68f0;fill-opacity:1"
+     points="236,192 236,472 4,376 4,96 "
+     id="polygon4" /><polygon
+     style="fill:#f06f65;fill-opacity:1"
+     points="468,96 468,376 236,472 236,192 "
+     id="polygon6" /></g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g8">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g10">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g12">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g14">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g16">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g18">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g20">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g22">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g24">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g26">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g28">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g30">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g32">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g34">
+</g>
+<g
+   transform="translate(-17.440002,-113.12)"
+   id="g36">
+</g>
+<text
+   id="text893"
+   y="123.36364"
+   x="183.8961"
+   style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Carlito;-inkscape-font-specification:'Carlito Bold Italic';letter-spacing:0px;word-spacing:0px;fill:#ffffff;"
+   xml:space="preserve"><tspan
+     y="123.36364"
+     x="183.8961"
+     id="tspan891"
+     sodipodi:role="line">ObjViewer</tspan></text><text
+   id="text897"
+   y="144.81819"
+   x="233.70129"
+   style="font-size:16px;line-height:1.25;font-family:'Eras Bold ITC';-inkscape-font-specification:'Eras Bold ITC';letter-spacing:0px;word-spacing:0px;fill:#999999;"
+   xml:space="preserve"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Script MT Bold';-inkscape-font-specification:'Script MT Bold, ';fill:#999999;"
+     y="144.81819"
+     x="233.70129"
+     id="tspan895"
+     sodipodi:role="line">Powered by Godot Engine</tspan></text></svg>
