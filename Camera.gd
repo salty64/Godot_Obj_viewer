@@ -22,6 +22,7 @@ export (float, 0.05, 1.0) var zoom_speed = 0.05
 const camera_x_home = 60
 const camera_y_home = 15
 
+
 var camera_x
 var camera_y
 
@@ -29,6 +30,8 @@ var mouse_rotate_button = false
 
 var position3D : Vector3
 var doubleclik : bool = false
+
+
 
 onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
@@ -102,26 +105,33 @@ func _physics_process(_delta):
 			vecteur_node2.add_vertex(origin_normale + Vector3.UP*0.25)
 			vecteur_node2.end()
 
-#			var angle_x = normale.angle_to(Vector3.BACK)
-#			var angle_y = normale.angle_to(Vector3.UP)
 
+			var vec_lookat =camera.global_transform.origin.direction_to(Vector3.ZERO)
 
-##			camera_x = $InnerGimbal.rotation.x
-##
-#			if round(rad2deg(angle_x)) != 180 : 
-#				angle_x = sign(normale.x)* angle_x
-#
-#			self.rotation.y = angle_x
-#			$InnerGimbal.rotation.x = angle_y
-#
-#
-#			camera_x = $InnerGimbal.rotation.x
-##			if camera_x < 0 :
-#			printt("inv", rad2deg(camera_x))
-##				self.rotation.y = self.rotation.y + PI
-##				$InnerGimbal.rotation.x = $InnerGimbal.rotation.x + PI
+			var vecteur_lookat2 = $"../Lookat2"
+			vecteur_lookat2.clear()
+			vecteur_lookat2.begin(Mesh.PRIMITIVE_LINES, null)
+			vecteur_lookat2.add_vertex(vec_lookat*0.25)
+			vecteur_lookat2.add_vertex(Vector3.ZERO)
+			vecteur_lookat2.end()
+			
+			var normale_node_0 = $"../normale_0"
+			normale_node_0.clear()
+			normale_node_0.begin(Mesh.PRIMITIVE_LINES, null)
+			normale_node_0.add_vertex(Vector3.ZERO)
+			normale_node_0.add_vertex(-normale*0.25)
+			normale_node_0.end()
 
+			var vecteur_lookat = $"../Lookat"
+			vecteur_lookat.clear()
+			vecteur_lookat.begin(Mesh.PRIMITIVE_LINES, null)
+			vecteur_lookat.add_vertex(Vector3.ZERO)
+			vecteur_lookat.add_vertex(-camera.global_transform.basis.z * 0.25)
+			vecteur_lookat.end()
+#			printt(vec_lookat,camera.global_transform.basis)
 
+			var angle_x = (-camera.global_transform.basis.z).angle_to(-normale)
+			angle_x = sign(-normale.z)* angle_x
 
 
 
@@ -146,5 +156,4 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_down"):
 		$InnerGimbal.rotation.x = $InnerGimbal.rotation.x - deg2rad(5)
 
-	
 
