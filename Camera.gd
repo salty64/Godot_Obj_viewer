@@ -19,8 +19,8 @@ export (float) var zoom_min = 0.1
 export (float) var zoom_max = 2
 export (float, 0.05, 1.0) var zoom_speed = 0.05
 
-const camera_x_home = 60
-const camera_y_home = 15
+const camera_x_home = 90
+const camera_y_home = 0
 
 
 var camera_x
@@ -91,12 +91,6 @@ func _physics_process(_delta):
 			normale_node.add_vertex(origin_normale + normale*0.25)
 			normale_node.end()
 			
-			var vecteur_node = $"../Back"
-			vecteur_node.clear()
-			vecteur_node.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_node.add_vertex(origin_normale)
-			vecteur_node.add_vertex(origin_normale + Vector3.BACK*0.25)
-			vecteur_node.end()
 			
 			var vecteur_node2 = $"../Vec"
 			vecteur_node2.clear()
@@ -130,9 +124,48 @@ func _physics_process(_delta):
 			vecteur_lookat.end()
 #			printt(vec_lookat,camera.global_transform.basis)
 
-			var angle_x = (-camera.global_transform.basis.z).angle_to(-normale)
-			angle_x = sign(-normale.z)* angle_x
+#			var angle_x = (-camera.global_transform.basis.z).angle_to(-normale)
+#			angle_x = sign(normale.z)* angle_x
+			
+			
+#			
+			
+			var result = -camera.global_transform.basis.z
+#			result = result.rotated(((-camera.global_transform.basis.z).cross(-normale)).normalized(),angle_x)
+			
+#			printt(rad2deg(angle_x), normale, result)
+			
+			var vecteur_node = $"../result"
+			vecteur_node.clear()
+			vecteur_node.begin(Mesh.PRIMITIVE_LINES, null)
+			vecteur_node.add_vertex(Vector3.ZERO)
+			vecteur_node.add_vertex(result*0.25)
+			vecteur_node.end()
+			
+			var angle_y = 0 
+			var angle_x= 0
+			
+			if round(rad2deg($InnerGimbal.rotation.x)) != 270 :
+				angle_y = Vector3.UP.angle_to(normale) - $InnerGimbal.rotation.x
 
+			if $InnerGimbal.rotation.x < 0 :
+				angle_y += PI
+
+			angle_x = normale.angle_to(Vector3.BACK)
+			if round(rad2deg(angle_x)) != 180 : 
+				angle_x = sign(normale.x)* angle_x
+
+#			printt (rad2deg(angle_y),$InnerGimbal.rotation_degrees)
+			printt (rad2deg(angle_x),camera.rotation_degrees)
+			
+			$InnerGimbal.rotation.x += angle_y
+#			self.rotation.y += angle_x 
+#			var x_angle = acos(Vector3(0,result.y,result.z).dot(Vector3(0,normale.y,normale.z)))
+#			var y_angle = acos(Vector3(result.x,0,result.z).dot(Vector3(normale.x,0,normale.z)))
+#
+#			$InnerGimbal.rotation.x = x_angle
+#			self.rotation.y = y_angle
+			
 
 
 

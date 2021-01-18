@@ -7,7 +7,6 @@
 [ext_resource path="res://Camera.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
-flags_transparent = true
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
 albedo_color = Color( 0.454902, 0.2, 0.2, 0.92549 )
@@ -93,7 +92,6 @@ shadow_enabled = true
 
 [node name="DirectionalLight2" type="DirectionalLight" parent="CameraGimbal /InnerGimbal/Camera"]
 transform = Transform( 0.906308, -0.0926808, 0.412331, 0, 0.975657, 0.219301, -0.422618, -0.198755, 0.884246, 1.9813, 1.12096, 0.575229 )
-visible = false
 shadow_enabled = true
 
 [node name="RayCast" type="RayCast" parent="CameraGimbal /InnerGimbal/Camera"]
@@ -104,18 +102,21 @@ cast_to = Vector3( 0, 0, -10 )
 environment = SubResource( 3 )
 
 [node name="normale" type="ImmediateGeometry" parent="."]
+visible = false
 material_override = SubResource( 4 )
 
 [node name="normale_0" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 5 )
 
-[node name="Back" type="ImmediateGeometry" parent="."]
+[node name="result" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 6 )
 
 [node name="Vec" type="ImmediateGeometry" parent="."]
+visible = false
 material_override = SubResource( 7 )
 
 [node name="Lookat" type="ImmediateGeometry" parent="."]
+visible = false
 material_override = SubResource( 8 )
 
 [node name="Lookat2" type="ImmediateGeometry" parent="."]
