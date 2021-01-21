@@ -10,7 +10,6 @@ export (float, 0.001, 0.1) var mouse_sensitivity = 0.005
 
 
 
-
 # zoom settings
 
 export (float) var zoom = 0.15
@@ -31,7 +30,7 @@ var mouse_rotate_button = false
 var position3D : Vector3
 var doubleclik : bool = false
 
-
+var A = false
 
 onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
@@ -148,26 +147,35 @@ func _physics_process(_delta):
 			if round(rad2deg($InnerGimbal.rotation.x)) != 270 :
 				angle_y = Vector3.UP.angle_to(normale) - $InnerGimbal.rotation.x
 
-			if $InnerGimbal.rotation.x < 0 :
-				angle_y += PI
+#			if $InnerGimbal.rotation.x < 0 :
+#				angle_y += PI
 
 			angle_x = normale.angle_to(Vector3.BACK)
 			if round(rad2deg(angle_x)) != 180 : 
 				angle_x = sign(normale.x)* angle_x
 
-#			printt (rad2deg(angle_y),$InnerGimbal.rotation_degrees)
+##			printt (rad2deg(angle_y),$InnerGimbal.rotation_degrees)
 			printt (rad2deg(angle_x),camera.rotation_degrees)
 			
 			$InnerGimbal.rotation.x += angle_y
-#			self.rotation.y += angle_x 
-#			var x_angle = acos(Vector3(0,result.y,result.z).dot(Vector3(0,normale.y,normale.z)))
-#			var y_angle = acos(Vector3(result.x,0,result.z).dot(Vector3(normale.x,0,normale.z)))
-#
-#			$InnerGimbal.rotation.x = x_angle
-#			self.rotation.y = y_angle
+#			
+			self.rotation.y =   angle_x 
 			
-
-
+#			var rotSpeed = 1
+#			var angleDiff = angle_y
+#
+#			var timeToTurn = abs(angleDiff/deg2rad(rotSpeed))
+#			var tween = $"../Rotate_x"
+#			tween.interpolate_property(self,"rotation.y",
+#			camera.rotation.y,
+#			angleDiff,
+#			timeToTurn,
+#			tween.TRANS_LINEAR,
+#			tween.EASE_OUT
+#			)
+#			tween.start()
+#			
+#
 
 func _process(_delta):
 	
@@ -188,5 +196,19 @@ func _process(_delta):
 
 	if Input.is_action_pressed("ui_down"):
 		$InnerGimbal.rotation.x = $InnerGimbal.rotation.x - deg2rad(5)
+	
+	
+	if Input.is_action_just_pressed("mouse_left"):
+		var position2D = get_viewport().get_mouse_position()
+		if !A :
+			printt("A",position2D)
+			$"../Control/Regle/Line2D".set_point_position(0,position2D)
+			A = true
+		else :
+			print("B")
+			$"../Control/Regle/Line2D".set_point_position(1,position2D)
+			A = false
+			
+
 
 
