@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/Articulation.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Viewer.gd" type="Script" id=2]
@@ -9,16 +9,18 @@
 [ext_resource path="res://vertical.svg" type="Texture" id=7]
 [ext_resource path="res://angle.svg" type="Texture" id=8]
 [ext_resource path="res://rubber.svg" type="Texture" id=9]
+[ext_resource path="res://zoom.svg" type="Texture" id=10]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_vertex_lighting = true
+vertex_color_use_as_albedo = true
 albedo_color = Color( 0.65098, 0.290196, 0.290196, 1 )
 
 [sub_resource type="BoxShape" id=2]
 
 [sub_resource type="Environment" id=3]
 background_mode = 1
-background_color = Color( 0.631373, 0.627451, 0.658824, 1 )
+background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
@@ -159,6 +161,34 @@ width = 1.0
 begin_cap_mode = 1
 end_cap_mode = 2
 
+[node name="Zoom" type="Control" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="Button" parent="Control/Zoom"]
+margin_left = 1345.83
+margin_top = 4.70924
+margin_right = 1377.83
+margin_bottom = 36.7092
+rect_min_size = Vector2( 32, 32 )
+icon = ExtResource( 10 )
+flat = true
+expand_icon = true
+
+[node name="VSlider" type="HSlider" parent="Control/Zoom"]
+margin_left = 1382.97
+margin_top = 11.1911
+margin_right = 1585.97
+margin_bottom = 27.1911
+theme = ExtResource( 3 )
+min_value = 0.1
+max_value = 0.8
+step = 0.001
+value = 0.35
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
@@ -196,4 +226,5 @@ environment = SubResource( 3 )
 [node name="IG" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 4 )
 cast_shadow = 0
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]

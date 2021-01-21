@@ -12,14 +12,14 @@ export (float, 0.001, 0.1) var mouse_sensitivity = 0.005
 
 # zoom settings
 
-export (float) var zoom = 0.15
+export (float) var zoom = 0.35
 
 export (float) var zoom_min = 0.1
-export (float) var zoom_max = 2
+export (float) var zoom_max = 0.8
 export (float, 0.05, 1.0) var zoom_speed = 0.05
 
-const camera_x_home = 90
-const camera_y_home = 0
+const camera_x_home = 30
+const camera_y_home = 15
 
 
 var camera_x
@@ -32,6 +32,8 @@ var doubleclik : bool = false
 
 
 var A = false
+
+var finalAngle
 
 onready var innerGimbal = $InnerGimbal
 onready var camera = $InnerGimbal/Camera
@@ -76,7 +78,7 @@ func _unhandled_input(event):
 
 	
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("mouse_center"):
+	if Input.is_action_just_pressed("mouse_right"):
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)
@@ -88,8 +90,6 @@ func _physics_process(_delta):
 		
 		if raycast.is_colliding():
 			var normale = raycast.get_collision_normal()
-
-			var origin_normale = raycast.get_collision_point()
 
 			var dir = camera.global_transform.basis.z
 
@@ -110,21 +110,16 @@ func _physics_process(_delta):
 			var angle_x = dir_x.angle_to(normal_x)
 
 			if normal_x.length() > 0.01:
-				var finalAngle = rotation.y - angle_x
-				
+				finalAngle = rotation.y - angle_x
 				tween.interpolate_property(self, "rotation:y", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
-#				rotate_y(-angle_x)
 
 			var angle_y = dir_y.angle_to(normal_y)
-
 			if innerGimbal.rotation.x >= -PI/2 and innerGimbal.rotation.x <= PI/2:
 				angle_y = -angle_y
-
-			printt (rad2deg(angle_x), camera.rotation_degrees)
 			
-			var finalAngle = innerGimbal.rotation.x+angle_y
+			finalAngle = innerGimbal.rotation.x + angle_y
 			tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
-#			innerGimbal.rotate_x(angle_y)
+
 			
 			tween.start()
 			
@@ -149,8 +144,16 @@ func _process(_delta):
 	
 
 	if Input.is_action_just_pressed("ui_home"):
-		innerGimbal.rotation.x = deg2rad(camera_x_home)
-		self.rotation.y = deg2rad(camera_y_home)
+		
+		finalAngle = deg2rad(camera_y_home)
+		tween.interpolate_property(self, "rotation:y", null, finalAngle, 0.7, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+		
+		finalAngle = deg2rad(camera_x_home)
+		tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+		
+		tween.start()
+#		innerGimbal.rotation.x = deg2rad(camera_x_home)
+#		self.rotation.y = deg2rad(camera_y_home)
 
 	if Input.is_action_pressed("ui_left"):
 		self.rotation.y = self.rotation.y + deg2rad(5)
