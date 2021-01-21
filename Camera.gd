@@ -25,6 +25,9 @@ const camera_y_home = 0
 var camera_x
 var camera_y
 
+var mouse_speed
+var mouse_have_move := false
+
 var mouse_rotate_button = false
 
 var position3D : Vector3
@@ -67,16 +70,12 @@ func _unhandled_input(event):
 		mouse_rotate_button = false
 	
 
-	if (mouse_rotate_button and event is InputEventMouseMotion):
-		if event.relative.x != 0:
-			self.rotate_object_local(Vector3.UP, event.relative.x * mouse_sensitivity)
-	
-		if event.relative.y != 0:
-			innerGimbal.rotate_object_local(Vector3.RIGHT, event.relative.y * mouse_sensitivity)
-
+	if event is InputEventMouseMotion:
+		mouse_speed = event.relative
+		mouse_have_move = true
 	
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("mouse_center"):
+	if Input.is_action_just_released("mouse_right") and !$Timer.is_stopped():
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)
@@ -113,7 +112,6 @@ func _physics_process(_delta):
 				var finalAngle = rotation.y - angle_x
 				
 				tween.interpolate_property(self, "rotation:y", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
-#				rotate_y(-angle_x)
 
 			var angle_y = dir_y.angle_to(normal_y)
 
@@ -124,28 +122,19 @@ func _physics_process(_delta):
 			
 			var finalAngle = innerGimbal.rotation.x+angle_y
 			tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
-#			innerGimbal.rotate_x(angle_y)
 			
 			tween.start()
-			
-#			var rotSpeed = 1
-#			var angleDiff = angle_y
-#
-#			var timeToTurn = abs(angleDiff/deg2rad(rotSpeed))
-#			var tween = $"../Rotate_x"
-#			tween.interpolate_property(self,"rotation.y",
-#			camera.rotation.y,
-#			angleDiff,
-#			timeToTurn,
-#			tween.TRANS_LINEAR,
-#			tween.EASE_OUT
-#			)
-#			tween.start()
-#			
-#
 
 func _process(_delta):
+	if Input.is_action_just_pressed("mouse_right"):
+		$Timer.start()
 	
+	if $Timer.is_stopped() and mouse_have_move and Input.is_action_pressed("mouse_right"):
+		self.rotate_object_local(Vector3.UP, mouse_speed.x * mouse_sensitivity)
+	
+		innerGimbal.rotate_object_local(Vector3.RIGHT, mouse_speed.y * mouse_sensitivity)
+		
+		mouse_have_move = false
 	
 
 	if Input.is_action_just_pressed("ui_home"):
@@ -175,7 +164,3 @@ func _process(_delta):
 			print("B")
 			$"../Control/Regle/Line2D".set_point_position(1,position2D)
 			A = false
-			
-
-
-
