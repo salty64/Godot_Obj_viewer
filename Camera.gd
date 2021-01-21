@@ -75,7 +75,7 @@ func _unhandled_input(event):
 		mouse_have_move = true
 	
 func _physics_process(_delta):
-	if Input.is_action_just_released("mouse_right") and !$Timer.is_stopped():
+	if !tween.is_active() and !$Timer.is_stopped() and Input.is_action_just_released("mouse_right"):
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)
@@ -129,7 +129,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("mouse_right"):
 		$Timer.start()
 	
-	if $Timer.is_stopped() and mouse_have_move and Input.is_action_pressed("mouse_right"):
+	if !tween.is_active() and $Timer.is_stopped() and mouse_have_move and Input.is_action_pressed("mouse_right"):
 		self.rotate_object_local(Vector3.UP, mouse_speed.x * mouse_sensitivity)
 	
 		innerGimbal.rotate_object_local(Vector3.RIGHT, mouse_speed.y * mouse_sensitivity)
