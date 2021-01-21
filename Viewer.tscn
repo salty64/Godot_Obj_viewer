@@ -187,10 +187,9 @@ shape = SubResource( 2 )
 script = ExtResource( 5 )
 
 [node name="InnerGimbal" type="Spatial" parent="CameraGimbal "]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="CameraGimbal /InnerGimbal"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 projection = 1
 current = true
 size = 0.1
@@ -226,5 +225,4 @@ material_override = SubResource( 8 )
 
 [node name="Lookat2" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 9 )
-
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]

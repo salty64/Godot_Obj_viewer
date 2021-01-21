@@ -32,14 +32,20 @@ var doubleclik : bool = false
 
 var A = false
 
+onready var innerGimbal = $InnerGimbal
 onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
 
 func _ready():
-	$InnerGimbal.rotation.x = deg2rad(camera_x_home)
+	innerGimbal.rotation.x = deg2rad(camera_x_home)
 	self.rotation.y = deg2rad(camera_y_home)
 	pass 
 
+
+func draw_line(ig:ImmediateGeometry, v:Vector3, v1:Vector3, c:Color):
+	ig.set_color(c)
+	ig.add_vertex(v)
+	ig.add_vertex(v1)
 
 func _unhandled_input(event):
 	
@@ -63,24 +69,23 @@ func _unhandled_input(event):
 			self.rotate_object_local(Vector3.UP, event.relative.x * mouse_sensitivity)
 	
 		if event.relative.y != 0:
-			$InnerGimbal.rotate_object_local(Vector3.RIGHT, event.relative.y * mouse_sensitivity)
+			innerGimbal.rotate_object_local(Vector3.RIGHT, event.relative.y * mouse_sensitivity)
 
 	
 func _physics_process(_delta):
-	
-
-		
 	if Input.is_action_just_pressed("mouse_center"):
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)
-		position3D=camera.to_local(position3D)
-		raycast.translation= Vector3(position3D.x, position3D.y,raycast.translation.z)
+
+		position3D = camera.to_local(position3D)
+
+		raycast.translation = Vector3(position3D.x, position3D.y, 0)
 		raycast.force_raycast_update()
 		
 		if raycast.is_colliding():
+			var normale = raycast.get_collision_normal()
 
-			var normale =raycast.get_collision_normal()
 			var origin_normale = raycast.get_collision_point()
 			
 			var normale_node = $"../normale"
@@ -90,7 +95,6 @@ func _physics_process(_delta):
 			normale_node.add_vertex(origin_normale + normale*0.25)
 			normale_node.end()
 			
-			
 			var vecteur_node2 = $"../Vec"
 			vecteur_node2.clear()
 			vecteur_node2.begin(Mesh.PRIMITIVE_LINES, null)
@@ -99,12 +103,12 @@ func _physics_process(_delta):
 			vecteur_node2.end()
 
 
-			var vec_lookat =camera.global_transform.origin.direction_to(Vector3.ZERO)
+			var dir = camera.global_transform.basis.z
 
 			var vecteur_lookat2 = $"../Lookat2"
 			vecteur_lookat2.clear()
 			vecteur_lookat2.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_lookat2.add_vertex(vec_lookat*0.25)
+			vecteur_lookat2.add_vertex(dir*0.25)
 			vecteur_lookat2.add_vertex(Vector3.ZERO)
 			vecteur_lookat2.end()
 			
@@ -121,45 +125,28 @@ func _physics_process(_delta):
 			vecteur_lookat.add_vertex(Vector3.ZERO)
 			vecteur_lookat.add_vertex(-camera.global_transform.basis.z * 0.25)
 			vecteur_lookat.end()
-#			printt(vec_lookat,camera.global_transform.basis)
+			
+			var normal_x = Vector2(normale.x, normale.z)
 
-#			var angle_x = (-camera.global_transform.basis.z).angle_to(-normale)
-#			angle_x = sign(normale.z)* angle_x
-			
-			
-#			
-			
-			var result = -camera.global_transform.basis.z
-#			result = result.rotated(((-camera.global_transform.basis.z).cross(-normale)).normalized(),angle_x)
-			
-#			printt(rad2deg(angle_x), normale, result)
-			
-			var vecteur_node = $"../result"
-			vecteur_node.clear()
-			vecteur_node.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_node.add_vertex(Vector3.ZERO)
-			vecteur_node.add_vertex(result*0.25)
-			vecteur_node.end()
-			
-			var angle_y = 0 
-			var angle_x= 0
-			
-			if round(rad2deg($InnerGimbal.rotation.x)) != 270 :
-				angle_y = Vector3.UP.angle_to(normale) - $InnerGimbal.rotation.x
+			var normal_y = Vector2(normal_x.length(), normale.y)
 
-#			if $InnerGimbal.rotation.x < 0 :
-#				angle_y += PI
+			var dir_x = Vector2(dir.x, dir.z)
 
-			angle_x = normale.angle_to(Vector3.BACK)
-			if round(rad2deg(angle_x)) != 180 : 
-				angle_x = sign(normale.x)* angle_x
+			var dir_y = Vector2(dir_x.length(), dir.y)
 
-##			printt (rad2deg(angle_y),$InnerGimbal.rotation_degrees)
-			printt (rad2deg(angle_x),camera.rotation_degrees)
+			var angle_x = dir_x.angle_to(normal_x)
+
+			if normal_x.length() > 0.01:
+				rotate_y(-angle_x)
+
+			var angle_y = dir_y.angle_to(normal_y)
+
+			if innerGimbal.rotation.x >= -PI/2 and innerGimbal.rotation.x <= PI/2:
+				angle_y = -angle_y
+
+			printt (rad2deg(angle_x), camera.rotation_degrees)
 			
-			$InnerGimbal.rotation.x += angle_y
-#			
-			self.rotation.y =   angle_x 
+			innerGimbal.rotate_x(angle_y)
 			
 #			var rotSpeed = 1
 #			var angleDiff = angle_y
@@ -182,7 +169,7 @@ func _process(_delta):
 	
 
 	if Input.is_action_just_pressed("ui_home"):
-		$InnerGimbal.rotation.x = deg2rad(camera_x_home)
+		innerGimbal.rotation.x = deg2rad(camera_x_home)
 		self.rotation.y = deg2rad(camera_y_home)
 
 	if Input.is_action_pressed("ui_left"):
@@ -192,10 +179,10 @@ func _process(_delta):
 		self.rotation.y = self.rotation.y - deg2rad(5)
 
 	if Input.is_action_pressed("ui_up"):
-		$InnerGimbal.rotation.x = $InnerGimbal.rotation.x + deg2rad(5)
+		innerGimbal.rotation.x = innerGimbal.rotation.x + deg2rad(5)
 
 	if Input.is_action_pressed("ui_down"):
-		$InnerGimbal.rotation.x = $InnerGimbal.rotation.x - deg2rad(5)
+		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(5)
 	
 	
 	if Input.is_action_just_pressed("mouse_left"):
