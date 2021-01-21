@@ -13,18 +13,18 @@
 flags_vertex_lighting = true
 albedo_color = Color( 0.65098, 0.290196, 0.290196, 1 )
 
-[sub_resource type="CubeMesh" id=5]
+[sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=4]
 background_mode = 1
 background_color = Color( 0.631373, 0.627451, 0.658824, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
@@ -168,11 +168,11 @@ end_cap_mode = 2
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
 material_override = SubResource( 1 )
-mesh = SubResource( 5 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CameraGimbal " type="Spatial" parent="."]
 script = ExtResource( 5 )
@@ -196,13 +196,13 @@ transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0
 [node name="Tween" type="Tween" parent="CameraGimbal "]
 
 [node name="Timer" type="Timer" parent="CameraGimbal "]
-wait_time = 0.1
+wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 3 )
+environment = SubResource( 4 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
-material_override = SubResource( 4 )
+material_override = SubResource( 5 )
 cast_shadow = 0
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
