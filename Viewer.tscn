@@ -87,13 +87,16 @@ __meta__ = {
 }
 
 [node name="Regle" type="Control" parent="Control"]
+anchor_right = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="Control/Regle"]
-margin_left = 500.0
-margin_right = 628.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -64.0
+margin_right = 64.0
 margin_bottom = 32.0
 theme = ExtResource( 3 )
 __meta__ = {
