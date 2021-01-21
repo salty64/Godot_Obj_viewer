@@ -1,7 +1,4 @@
-[gd_resource type="SpatialMaterial" load_steps=2 format=2]
-
-[ext_resource path="res://asset/aluminium/aluminium_albedo.png" type="Texture" id=1]
+[gd_resource type="SpatialMaterial" format=2]
 
 [resource]
 albedo_color = Color( 0.666667, 0.184314, 0.184314, 1 )
-albedo_texture = ExtResource( 1 )

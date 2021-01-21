@@ -120,24 +120,9 @@ func _physics_process(_delta):
 			finalAngle = innerGimbal.rotation.x + angle_y
 			tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
 
-			
 			tween.start()
-			
-#			var rotSpeed = 1
-#			var angleDiff = angle_y
-#
-#			var timeToTurn = abs(angleDiff/deg2rad(rotSpeed))
-#			var tween = $"../Rotate_x"
-#			tween.interpolate_property(self,"rotation.y",
-#			camera.rotation.y,
-#			angleDiff,
-#			timeToTurn,
-#			tween.TRANS_LINEAR,
-#			tween.EASE_OUT
-#			)
-#			tween.start()
-#			
-#
+
+
 
 func _process(_delta):
 	
@@ -152,8 +137,7 @@ func _process(_delta):
 		tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 		
 		tween.start()
-#		innerGimbal.rotation.x = deg2rad(camera_x_home)
-#		self.rotation.y = deg2rad(camera_y_home)
+
 
 	if Input.is_action_pressed("ui_left"):
 		self.rotation.y = self.rotation.y + deg2rad(5)
