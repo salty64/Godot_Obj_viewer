@@ -76,7 +76,7 @@ func _unhandled_input(event):
 		mouse_have_move = true
 	
 func _physics_process(_delta):
-	if !tween.is_active() and timer.is_stopped() and Input.is_action_just_released("mouse_right"):
+	if !tween.is_active() and !timer.is_stopped() and Input.is_action_just_released("mouse_right"):
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)

@@ -1,6 +1,5 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://objects/Articulation.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Viewer.gd" type="Script" id=2]
 [ext_resource path="res://themes/dark.tres" type="Theme" id=3]
 [ext_resource path="res://ui/MenuButton.tscn" type="PackedScene" id=4]
@@ -13,6 +12,9 @@
 [sub_resource type="SpatialMaterial" id=1]
 flags_vertex_lighting = true
 albedo_color = Color( 0.65098, 0.290196, 0.290196, 1 )
+
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 0.1, 0.1, 0.1 )
 
 [sub_resource type="BoxShape" id=2]
 
@@ -166,7 +168,7 @@ end_cap_mode = 2
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
 material_override = SubResource( 1 )
-mesh = ExtResource( 1 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
