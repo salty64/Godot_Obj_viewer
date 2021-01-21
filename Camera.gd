@@ -37,6 +37,7 @@ onready var innerGimbal = $InnerGimbal
 onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
 onready var ig = $"../IG"
+onready var tween = $Tween
 
 func _ready():
 	innerGimbal.rotation.x = deg2rad(camera_x_home)
@@ -97,8 +98,6 @@ func _physics_process(_delta):
 			draw_line(Vector3.ZERO,dir*0.25,Color.red)
 			draw_line(Vector3.ZERO,normale*0.25,Color.violet)
 			ig.end()
-			
-
 	
 			var normal_x = Vector2(normale.x, normale.z)
 
@@ -111,7 +110,10 @@ func _physics_process(_delta):
 			var angle_x = dir_x.angle_to(normal_x)
 
 			if normal_x.length() > 0.01:
-				rotate_y(-angle_x)
+				var finalAngle = rotation.y - angle_x
+				
+				tween.interpolate_property(self, "rotation:y", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+#				rotate_y(-angle_x)
 
 			var angle_y = dir_y.angle_to(normal_y)
 
@@ -120,7 +122,11 @@ func _physics_process(_delta):
 
 			printt (rad2deg(angle_x), camera.rotation_degrees)
 			
-			innerGimbal.rotate_x(angle_y)
+			var finalAngle = innerGimbal.rotation.x+angle_y
+			tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+#			innerGimbal.rotate_x(angle_y)
+			
+			tween.start()
 			
 #			var rotSpeed = 1
 #			var angleDiff = angle_y

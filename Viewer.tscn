@@ -188,11 +188,12 @@ cast_to = Vector3( 0, 0, -10 )
 [node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal /InnerGimbal/Camera"]
 transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0, 0, 0 )
 
+[node name="Tween" type="Tween" parent="CameraGimbal "]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 4 )
 cast_shadow = 0
-
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
