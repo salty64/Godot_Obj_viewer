@@ -30,11 +30,13 @@ var mouse_rotate_button = false
 var position3D : Vector3
 var doubleclik : bool = false
 
+
 var A = false
 
 onready var innerGimbal = $InnerGimbal
 onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
+onready var ig = $"../IG"
 
 func _ready():
 	innerGimbal.rotation.x = deg2rad(camera_x_home)
@@ -42,7 +44,7 @@ func _ready():
 	pass 
 
 
-func draw_line(ig:ImmediateGeometry, v:Vector3, v1:Vector3, c:Color):
+func draw_line(v:Vector3, v1:Vector3, c:Color):
 	ig.set_color(c)
 	ig.add_vertex(v)
 	ig.add_vertex(v1)
@@ -87,45 +89,17 @@ func _physics_process(_delta):
 			var normale = raycast.get_collision_normal()
 
 			var origin_normale = raycast.get_collision_point()
-			
-			var normale_node = $"../normale"
-			normale_node.clear()
-			normale_node.begin(Mesh.PRIMITIVE_LINES, null)
-			normale_node.add_vertex(origin_normale)
-			normale_node.add_vertex(origin_normale + normale*0.25)
-			normale_node.end()
-			
-			var vecteur_node2 = $"../Vec"
-			vecteur_node2.clear()
-			vecteur_node2.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_node2.add_vertex(origin_normale)
-			vecteur_node2.add_vertex(origin_normale + Vector3.UP*0.25)
-			vecteur_node2.end()
-
 
 			var dir = camera.global_transform.basis.z
 
-			var vecteur_lookat2 = $"../Lookat2"
-			vecteur_lookat2.clear()
-			vecteur_lookat2.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_lookat2.add_vertex(dir*0.25)
-			vecteur_lookat2.add_vertex(Vector3.ZERO)
-			vecteur_lookat2.end()
+			ig.clear()
+			ig.begin(Mesh.PRIMITIVE_LINES)
+			draw_line(Vector3.ZERO,dir*0.25,Color.red)
+			draw_line(Vector3.ZERO,normale*0.25,Color.violet)
+			ig.end()
 			
-			var normale_node_0 = $"../normale_0"
-			normale_node_0.clear()
-			normale_node_0.begin(Mesh.PRIMITIVE_LINES, null)
-			normale_node_0.add_vertex(Vector3.ZERO)
-			normale_node_0.add_vertex(-normale*0.25)
-			normale_node_0.end()
 
-			var vecteur_lookat = $"../Lookat"
-			vecteur_lookat.clear()
-			vecteur_lookat.begin(Mesh.PRIMITIVE_LINES, null)
-			vecteur_lookat.add_vertex(Vector3.ZERO)
-			vecteur_lookat.add_vertex(-camera.global_transform.basis.z * 0.25)
-			vecteur_lookat.end()
-			
+	
 			var normal_x = Vector2(normale.x, normale.z)
 
 			var normal_y = Vector2(normal_x.length(), normale.y)
