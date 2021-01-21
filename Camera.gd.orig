@@ -78,7 +78,11 @@ func _unhandled_input(event):
 		mouse_have_move = true
 	
 func _physics_process(_delta):
+<<<<<<< HEAD
+	if Input.is_action_just_pressed("mouse_right"):
+=======
 	if !tween.is_active() and !timer.is_stopped() and Input.is_action_just_released("mouse_right"):
+>>>>>>> theLudovyc
 		var position2D = get_viewport().get_mouse_position()
 
 		position3D = camera.project_ray_origin(position2D)
@@ -119,8 +123,15 @@ func _physics_process(_delta):
 			
 			finalAngle = innerGimbal.rotation.x + angle_y
 			tween.interpolate_property(innerGimbal, "rotation:x", null, finalAngle, 0.7, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
+<<<<<<< HEAD
+
+			tween.start()
+
+
+=======
 			
 			tween.start()
+>>>>>>> theLudovyc
 
 func _process(_delta):
 	if Input.is_action_just_pressed("mouse_right"):
