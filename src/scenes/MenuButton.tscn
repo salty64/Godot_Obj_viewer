@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://themes/styles/icon_button_pressed.tres" type="StyleBox" id=1]
+[ext_resource path="res://themes/styles/icon_button_hover.tres" type="StyleBox" id=2]
+[ext_resource path="res://themes/styles/icon_button_normal.tres" type="StyleBox" id=3]
+[ext_resource path="res://themes/dark.tres" type="Theme" id=4]
+[ext_resource path="res://assets/menu.svg" type="Texture" id=5]
+[ext_resource path="res://scripts/MenuButton.gd" type="Script" id=6]
+
+[node name="MenuButton" type="MenuButton"]
+margin_right = 200.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 24 )
+theme = ExtResource( 4 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/normal = ExtResource( 3 )
+text = "Chose a file"
+icon = ExtResource( 5 )
+flat = false
+clip_text = true
+align = 0
+expand_icon = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
