@@ -50,10 +50,8 @@ onready var timer = $Timer
 func set_zoom(z:float):
 	
 	zoom = clamp(z, zoom_min, zoom_max)
-	
-	printt ("54",zoom, zoom_home)
+
 	if zoom == zoom_home :
-		printt("56",zoom,zoom_home)
 		tween_zoom.interpolate_property(camera, "size", null, zoom, 1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 		tween_zoom.start()
 	else :
@@ -172,18 +170,8 @@ func _process(_delta):
 
 	if Input.is_action_pressed("ui_down"):
 		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(5)
-	
-	
-	if Input.is_action_just_pressed("mouse_left"):
-		var position2D = get_viewport().get_mouse_position()
-		if !A :
-			printt("A",position2D)
-#			$"../Control/Regle/Line2D".set_point_position(0,position2D)
-			A = true
-		else :
-			print("B")
-#			$"../Control/Regle/Line2D".set_point_position(1,position2D)
-			A = false
+
+
 
 
 func _on_Zoom_Moins_pressed():

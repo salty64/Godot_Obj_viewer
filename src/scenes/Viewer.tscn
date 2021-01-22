@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -12,11 +12,13 @@
 [ext_resource path="res://assets/horizontal.svg" type="Texture" id=10]
 [ext_resource path="res://assets/vertical.svg" type="Texture" id=11]
 [ext_resource path="res://assets/rubber.svg" type="Texture" id=12]
+[ext_resource path="res://scripts/Regle.gd" type="Script" id=13]
+[ext_resource path="res://assets/handle.svg" type="Texture" id=14]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_vertex_lighting = true
 vertex_color_use_as_albedo = true
-albedo_color = Color( 0.65098, 0.290196, 0.290196, 1 )
+albedo_color = Color( 0.478431, 0.34902, 0.34902, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.1, 0.1, 0.1 )
@@ -78,17 +80,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Distance" type="Label" parent="Control/Info/HBoxContainer"]
-margin_right = 96.0
-margin_bottom = 22.0
-text = "Distance = 12"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Angle" type="Label" parent="Control/Info/HBoxContainer"]
-margin_left = 100.0
-margin_right = 168.0
+margin_right = 68.0
 margin_bottom = 22.0
 text = "Angle = 0"
 align = 2
@@ -118,6 +111,7 @@ margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 theme = ExtResource( 5 )
+toggle_mode = true
 text = "R"
 icon = ExtResource( 12 )
 flat = true
@@ -132,6 +126,7 @@ margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+toggle_mode = true
 text = "H"
 icon = ExtResource( 10 )
 clip_text = true
@@ -164,8 +159,8 @@ __meta__ = {
 }
 
 [node name="Zoom_Init" type="Button" parent="Control/Toolbar/Panel"]
-margin_left = 304.0
-margin_right = 368.0
+margin_left = 304.891
+margin_right = 368.891
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 action_mode = 0
@@ -215,11 +210,57 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Line2D" type="Line2D" parent="Control/Toolbar"]
-points = PoolVector2Array( 0, 0, 0, 0 )
+[node name="Regle" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = -20.0
+margin_bottom = -20.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line" type="Line2D" parent="Control/Regle"]
+points = PoolVector2Array( 0, 0, 100, 0 )
 width = 1.0
+default_color = Color( 0.4, 0.501961, 1, 1 )
 begin_cap_mode = 1
 end_cap_mode = 2
+
+[node name="A" type="TextureButton" parent="Control/Regle"]
+margin_left = -32.0
+margin_top = -16.0
+margin_right = 288.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 20, 20 )
+rect_scale = Vector2( 0.1, 0.1 )
+action_mode = 0
+texture_normal = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="B" type="TextureButton" parent="Control/Regle"]
+margin_left = 100.0
+margin_top = -16.0
+margin_right = 420.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 20, 20 )
+rect_scale = Vector2( 0.1, 0.1 )
+action_mode = 0
+texture_normal = ExtResource( 14 )
+
+[node name="Distance" type="Label" parent="Control/Regle"]
+margin_right = 96.0
+margin_bottom = 22.0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
@@ -267,8 +308,14 @@ material_override = SubResource( 5 )
 cast_shadow = 0
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
+[connection signal="toggled" from="Control/Toolbar/Panel/Ruler" to="Control" method="_on_Ruler_toggled"]
+[connection signal="toggled" from="Control/Toolbar/Panel/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
 [connection signal="button_down" from="Control/Toolbar/Panel/Zoom_Init" to="CameraGimbal" method="_on_Zoom_Init_button_down"]
 [connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Plus" to="CameraGimbal" method="_on_Zoom_Plus_pressed"]
 [connection signal="value_changed" from="Control/Toolbar/Panel/VSlider" to="CameraGimbal" method="_on_VSlider_value_changed"]
 [connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Moins" to="CameraGimbal" method="_on_Zoom_Moins_pressed"]
+[connection signal="button_down" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_down"]
+[connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
+[connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]
+[connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
 [connection signal="zoom_value" from="CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
