@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zoom_plus.svg-49bda6b63334ebe42c040ce2eb715f1e.stex"
+path="res://.import/horizontal.svg-ef8e0c926f90def66edfa358cd7f796b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://zoom_plus.svg"
-dest_files=[ "res://.import/zoom_plus.svg-49bda6b63334ebe42c040ce2eb715f1e.stex" ]
+source_file="res://assets/horizontal.svg"
+dest_files=[ "res://.import/horizontal.svg-ef8e0c926f90def66edfa358cd7f796b.stex" ]
 
 [params]
 

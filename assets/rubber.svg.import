@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/horizontal.svg-e2359fc571821313ed864e3f5883976e.stex"
+path="res://.import/rubber.svg-56bf5569a655bdb902c9a5b927c6cebe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://horizontal.svg"
-dest_files=[ "res://.import/horizontal.svg-e2359fc571821313ed864e3f5883976e.stex" ]
+source_file="res://assets/rubber.svg"
+dest_files=[ "res://.import/rubber.svg-56bf5569a655bdb902c9a5b927c6cebe.stex" ]
 
 [params]
 

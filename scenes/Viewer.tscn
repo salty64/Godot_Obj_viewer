@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://zoom_moins.svg" type="Texture" id=1]
-[ext_resource path="res://Viewer.gd" type="Script" id=2]
-[ext_resource path="res://themes/dark.tres" type="Theme" id=3]
-[ext_resource path="res://ui/MenuButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Camera.gd" type="Script" id=5]
-[ext_resource path="res://horizontal.svg" type="Texture" id=6]
-[ext_resource path="res://vertical.svg" type="Texture" id=7]
-[ext_resource path="res://angle.svg" type="Texture" id=8]
-[ext_resource path="res://rubber.svg" type="Texture" id=9]
-[ext_resource path="res://zoom.svg" type="Texture" id=10]
-[ext_resource path="res://zoom_plus.svg" type="Texture" id=11]
+[ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Viewer.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Control.gd" type="Script" id=4]
+[ext_resource path="res://themes/dark.tres" type="Theme" id=5]
+[ext_resource path="res://assets/zoom.svg" type="Texture" id=6]
+[ext_resource path="res://assets/zoom_moins.svg" type="Texture" id=7]
+[ext_resource path="res://assets/angle.svg" type="Texture" id=8]
+[ext_resource path="res://assets/zoom_plus.svg" type="Texture" id=9]
+[ext_resource path="res://assets/horizontal.svg" type="Texture" id=10]
+[ext_resource path="res://assets/vertical.svg" type="Texture" id=11]
+[ext_resource path="res://assets/rubber.svg" type="Texture" id=12]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_vertex_lighting = true
@@ -34,13 +35,14 @@ flags_unshaded = true
 vertex_color_use_as_albedo = true
 
 [node name="Spatial" type="Spatial"]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,14 +50,14 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 margin_right = 247.0
 margin_bottom = 115.0
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
 follow_focus = true
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuButton" parent="Control/ScrollContainer" instance=ExtResource( 4 )]
+[node name="MenuButton" parent="Control/ScrollContainer" instance=ExtResource( 1 )]
 
 [node name="Info" type="Control" parent="Control"]
 anchor_top = 1.0
@@ -93,30 +95,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Regle" type="Control" parent="Control"]
+[node name="Toolbar" type="Control" parent="Control"]
 anchor_right = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Control/Regle"]
+[node name="Panel" type="Panel" parent="Control/Toolbar"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -128.0
-margin_right = 512.0
+margin_left = -320.0
+margin_right = 320.0
 margin_bottom = 64.0
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ruler" type="Button" parent="Control/Regle/Panel"]
+[node name="Ruler" type="Button" parent="Control/Toolbar/Panel"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
 text = "R"
-icon = ExtResource( 9 )
+icon = ExtResource( 12 )
 flat = true
 clip_text = true
 expand_icon = true
@@ -124,30 +126,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Horizontal" type="Button" parent="Control/Regle/Panel"]
+[node name="Horizontal" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 text = "H"
-icon = ExtResource( 6 )
+icon = ExtResource( 10 )
 clip_text = true
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Vertical" type="Button" parent="Control/Regle/Panel"]
+[node name="Vertical" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 128.0
 margin_right = 192.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 text = "V"
-icon = ExtResource( 7 )
+icon = ExtResource( 11 )
 clip_text = true
 expand_icon = true
 
-[node name="Angle" type="Button" parent="Control/Regle/Panel"]
+[node name="Angle" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 192.0
 margin_right = 256.0
 margin_bottom = 64.0
@@ -160,57 +162,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Init" type="Button" parent="Control/Regle/Panel"]
+[node name="Zoom_Init" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 304.0
 margin_right = 368.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
-icon = ExtResource( 10 )
+icon = ExtResource( 6 )
 flat = true
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zomm_Moins" type="Button" parent="Control/Regle/Panel"]
+[node name="Zoom_Moins" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 368.0
 margin_right = 400.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 32, 64 )
-icon = ExtResource( 1 )
+icon = ExtResource( 7 )
 flat = true
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSlider" type="HSlider" parent="Control/Regle/Panel"]
+[node name="VSlider" type="HSlider" parent="Control/Toolbar/Panel"]
 margin_left = 400.0
 margin_right = 608.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
 min_value = 0.1
 max_value = 0.8
 step = 0.001
 value = 0.35
+ticks_on_borders = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Plus" type="Button" parent="Control/Regle/Panel"]
+[node name="Zoom_Plus" type="Button" parent="Control/Toolbar/Panel"]
 margin_left = 608.0
 margin_right = 640.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 32, 64 )
-icon = ExtResource( 11 )
+icon = ExtResource( 9 )
 flat = true
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Line2D" type="Line2D" parent="Control/Regle"]
+[node name="Line2D" type="Line2D" parent="Control/Toolbar"]
 points = PoolVector2Array( 0, 0, 0, 0 )
 width = 1.0
 begin_cap_mode = 1
@@ -226,28 +229,28 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 3 )
 
-[node name="CameraGimbal " type="Spatial" parent="."]
-script = ExtResource( 5 )
+[node name="CameraGimbal" type="Spatial" parent="."]
+script = ExtResource( 2 )
 
-[node name="InnerGimbal" type="Spatial" parent="CameraGimbal "]
+[node name="InnerGimbal" type="Spatial" parent="CameraGimbal"]
 
-[node name="Camera" type="Camera" parent="CameraGimbal /InnerGimbal"]
+[node name="Camera" type="Camera" parent="CameraGimbal/InnerGimbal"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 projection = 1
 current = true
 size = 0.1
 near = 0.01
 
-[node name="RayCast" type="RayCast" parent="CameraGimbal /InnerGimbal/Camera"]
+[node name="RayCast" type="RayCast" parent="CameraGimbal/InnerGimbal/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal /InnerGimbal/Camera"]
+[node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal/InnerGimbal/Camera"]
 transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0, 0, 0 )
 
-[node name="Tween" type="Tween" parent="CameraGimbal "]
+[node name="Tween" type="Tween" parent="CameraGimbal"]
 
-[node name="Timer" type="Timer" parent="CameraGimbal "]
+[node name="Timer" type="Timer" parent="CameraGimbal"]
 wait_time = 0.2
 one_shot = true
 
@@ -260,3 +263,7 @@ material_override = SubResource( 5 )
 cast_shadow = 0
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
+[connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Init" to="CameraGimbal" method="_on_Zoom_Init_pressed"]
+[connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Moins" to="CameraGimbal" method="_on_Zoom_Moins_pressed"]
+[connection signal="value_changed" from="Control/Toolbar/Panel/VSlider" to="CameraGimbal" method="_on_VSlider_value_changed"]
+[connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Plus" to="CameraGimbal" method="_on_Zoom_Plus_pressed"]

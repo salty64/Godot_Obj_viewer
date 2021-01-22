@@ -31,3 +31,6 @@ func _on_MenuButton_obj_selected(obj_name):
 #	for vtx in range(mdt.get_vertex_count()):
 #		var vert=mdt.get_vertex(vtx)
 #		print("global vertex: "+str(nd.global_transform.xform(vert)))
+
+
+

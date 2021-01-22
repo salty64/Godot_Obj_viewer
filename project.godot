@@ -11,8 +11,8 @@ config_version=4
 [application]
 
 config/name="Cao- Dao"
-run/main_scene="res://Viewer.tscn"
-boot_splash/image="res://splash.png"
+run/main_scene="res://scenes/Viewer.tscn"
+boot_splash/image="res://assets/splash.png"
 config/icon="res://icon.png"
 
 [display]

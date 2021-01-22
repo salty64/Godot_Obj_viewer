@@ -1,6 +1,6 @@
 extends Spatial
 
-
+signal zoom_value(value)
 
 export (float, 0.0, 2.0) var rotation_speed = PI/2
 
@@ -12,14 +12,14 @@ export (float, 0.001, 0.1) var mouse_sensitivity = 0.005
 
 # zoom settings
 
-export (float) var zoom = 0.35
-
 export (float) var zoom_min = 0.1
 export (float) var zoom_max = 0.8
 export (float, 0.05, 1.0) var zoom_speed = 0.05
 
+const zoom_home = 0.35
 const camera_x_home = 30
 const camera_y_home = 15
+var zoom = zoom_home
 
 
 var camera_x
@@ -45,10 +45,14 @@ onready var ig = $"../IG"
 onready var tween = $Tween
 onready var timer = $Timer
 
+
+
 func _ready():
 	innerGimbal.rotation.x = deg2rad(camera_x_home)
 	self.rotation.y = deg2rad(camera_y_home)
+	camera.size = zoom
 	pass 
+
 
 
 func draw_line(v:Vector3, v1:Vector3, c:Color):
@@ -56,16 +60,22 @@ func draw_line(v:Vector3, v1:Vector3, c:Color):
 	ig.add_vertex(v)
 	ig.add_vertex(v1)
 
+func set_zoom(z:float):
+	zoom = clamp(z, zoom_min, zoom_max)
+	emit_signal("zoom_value", zoom)
+	camera.size = zoom
+
+func add_zoom(z:float):
+	set_zoom(zoom+z)
+
+	
 func _unhandled_input(event):
 	
 	if (event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_UP):
-		zoom -= zoom_speed
+		add_zoom(-zoom_speed)
 	if (event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_DOWN):
-		zoom += zoom_speed
+		add_zoom(zoom_speed)
 	
-	# a faire que sur modif de zoom
-	zoom = clamp(zoom, zoom_min, zoom_max)
-	camera.size = zoom
 	
 	if (event is InputEventMouseButton && event.button_index == BUTTON_RIGHT && event.pressed):
 		mouse_rotate_button = true
@@ -162,9 +172,25 @@ func _process(_delta):
 		var position2D = get_viewport().get_mouse_position()
 		if !A :
 			printt("A",position2D)
-			$"../Control/Regle/Line2D".set_point_position(0,position2D)
+#			$"../Control/Regle/Line2D".set_point_position(0,position2D)
 			A = true
 		else :
 			print("B")
-			$"../Control/Regle/Line2D".set_point_position(1,position2D)
+#			$"../Control/Regle/Line2D".set_point_position(1,position2D)
 			A = false
+
+
+func _on_Zoom_Init_pressed():
+	zoom = zoom_home
+	camera.size = zoom
+
+
+func _on_Zoom_Moins_pressed():
+	add_zoom(zoom_speed)
+
+func _on_Zoom_Plus_pressed():
+	add_zoom(-zoom_speed)
+
+
+func _on_VSlider_value_changed(value):
+	set_zoom(value)

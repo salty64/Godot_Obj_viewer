@@ -2,7 +2,7 @@ extends MenuButton
 
 
 var object_list
-var obj_icon = load("res://cube.svg") 
+var obj_icon = load("res://assets/cube.svg") 
 var menu
 
 signal obj_selected (obj_name)
