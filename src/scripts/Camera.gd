@@ -43,13 +43,22 @@ onready var camera = $InnerGimbal/Camera
 onready var raycast = $InnerGimbal/Camera/RayCast
 onready var ig = $"../IG"
 onready var tween = $Tween
+onready var tween_zoom = $Tween_zoom
 onready var timer = $Timer
 
 
 func set_zoom(z:float):
+	
 	zoom = clamp(z, zoom_min, zoom_max)
+	
+	printt ("54",zoom, zoom_home)
+	if zoom == zoom_home :
+		printt("56",zoom,zoom_home)
+		tween_zoom.interpolate_property(camera, "size", null, zoom, 1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+		tween_zoom.start()
+	else :
+		camera.size = zoom
 	emit_signal("zoom_value", zoom)
-	camera.size = zoom
 
 func add_zoom(z:float):
 	set_zoom(zoom+z)
@@ -177,10 +186,6 @@ func _process(_delta):
 			A = false
 
 
-func _on_Zoom_Init_pressed():
-	set_zoom(zoom_home)
-
-
 func _on_Zoom_Moins_pressed():
 	add_zoom(zoom_speed)
 
@@ -189,4 +194,11 @@ func _on_Zoom_Plus_pressed():
 
 
 func _on_VSlider_value_changed(value):
-	set_zoom(value)
+	
+	if value !=zoom :
+		set_zoom(value)
+		
+
+
+func _on_Zoom_Init_button_down():
+	set_zoom(zoom_home)

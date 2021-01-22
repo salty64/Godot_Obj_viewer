@@ -50,6 +50,7 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 margin_right = 247.0
 margin_bottom = 115.0
+rect_min_size = Vector2( 0, 64 )
 theme = ExtResource( 5 )
 follow_focus = true
 scroll_horizontal_enabled = false
@@ -167,6 +168,7 @@ margin_left = 304.0
 margin_right = 368.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+action_mode = 0
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -250,6 +252,8 @@ transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0
 
 [node name="Tween" type="Tween" parent="CameraGimbal"]
 
+[node name="Tween_zoom" type="Tween" parent="CameraGimbal"]
+
 [node name="Timer" type="Timer" parent="CameraGimbal"]
 wait_time = 0.2
 one_shot = true
@@ -263,7 +267,7 @@ material_override = SubResource( 5 )
 cast_shadow = 0
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
-[connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Init" to="CameraGimbal" method="_on_Zoom_Init_pressed"]
+[connection signal="button_down" from="Control/Toolbar/Panel/Zoom_Init" to="CameraGimbal" method="_on_Zoom_Init_button_down"]
 [connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Plus" to="CameraGimbal" method="_on_Zoom_Plus_pressed"]
 [connection signal="value_changed" from="Control/Toolbar/Panel/VSlider" to="CameraGimbal" method="_on_VSlider_value_changed"]
 [connection signal="pressed" from="Control/Toolbar/Panel/Zoom_Moins" to="CameraGimbal" method="_on_Zoom_Moins_pressed"]
