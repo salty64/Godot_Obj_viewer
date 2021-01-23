@@ -190,6 +190,7 @@ __meta__ = {
 }
 
 [node name="Horizontal" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+visible = false
 margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 64.0
@@ -291,6 +292,7 @@ __meta__ = {
 }
 
 [node name="Regle" type="Control" parent="Control"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -317,7 +319,7 @@ margin_top = -16.0
 margin_right = 288.0
 margin_bottom = 304.0
 rect_min_size = Vector2( 20, 20 )
-rect_scale = Vector2( 0.1, 0.1 )
+rect_scale = Vector2( 0.05, 0.05 )
 action_mode = 0
 texture_normal = ExtResource( 14 )
 texture_hover = ExtResource( 16 )
