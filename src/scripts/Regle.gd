@@ -6,11 +6,15 @@ var b := false
 var h := false
 var v := false
 var cursor_pos 
+var Hstyle
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Hstyle = StyleBoxFlat.new()
+	Hstyle.set_bg_color("#00000000")
+	Hstyle.set_border_color("#6680ff")
+	$Distance.set('custom_styles/normal', Hstyle)
 
 
 
@@ -24,11 +28,16 @@ func _process(_delta):
 	
 	cursor_pos = get_viewport().get_mouse_position()
 	
+	
+	
+
+	
 	if h :
 		$Distance.rect_size.x=distance
 		$Distance.rect_size.y=64
-		
 		$Distance.rect_global_position=$A.rect_global_position +Vector2(16,-16)
+		
+		
 		if a :
 			$A.rect_global_position = cursor_pos
 			$Line.set_point_position(0,A_pos-rect_global_position-Vector2(-32,-16))
@@ -43,6 +52,8 @@ func _process(_delta):
 		$Distance.rect_size.x=20
 		$Distance.rect_size.y=distance
 		$Distance.rect_global_position=$A.rect_global_position +Vector2(20,16)
+		
+		
 		if a :
 			$A.rect_global_position = cursor_pos
 			$Line.set_point_position(0,A_pos-rect_global_position-Vector2(-16,-32))
@@ -83,6 +94,11 @@ func _on_Horizontal_toggled(button_pressed):
 		$Line.set_point_position(1,Vector2(100,0))
 		$A.rect_position= Vector2(-100,0)+Vector2(-32,-16)
 		$B.rect_position= Vector2(100,0)+Vector2(0,-16)
+		Hstyle.set_border_width(MARGIN_LEFT,2)
+		Hstyle.set_border_width(MARGIN_RIGHT,2)
+		Hstyle.set_border_width(MARGIN_TOP,0)
+		Hstyle.set_border_width(MARGIN_BOTTOM,0)
+		$Distance.set('custom_styles/normal', Hstyle)
 	
 
 
@@ -94,3 +110,8 @@ func _on_Vertical_toggled(button_pressed):
 		$Line.set_point_position(1,Vector2(0,-100))
 		$A.rect_position= Vector2(0,-100)+Vector2(-16,-32)
 		$B.rect_position= Vector2(0,100)+Vector2(-16,0)
+		Hstyle.set_border_width(MARGIN_LEFT,0)
+		Hstyle.set_border_width(MARGIN_RIGHT,0)
+		Hstyle.set_border_width(MARGIN_TOP,2)
+		Hstyle.set_border_width(MARGIN_BOTTOM,2)
+		$Distance.set('custom_styles/normal', Hstyle)
