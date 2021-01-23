@@ -16,41 +16,36 @@
 [ext_resource path="res://assets/handle.svg" type="Texture" id=14]
 [ext_resource path="res://assets/handle_hover.svg" type="Texture" id=16]
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.6, 0.6, 0.6, 0.129412 )
-draw_center = false
-border_width_left = 2
-border_width_right = 2
-border_color = Color( 0.4, 0.501961, 1, 1 )
-border_blend = true
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0.6, 0 )
 
-[sub_resource type="DynamicFontData" id=7]
+[sub_resource type="DynamicFontData" id=2]
 font_path = "res://themes/fonts/FiraSans-Bold.ttf"
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 outline_size = 1
 outline_color = Color( 0.4, 0.501961, 1, 1 )
-font_data = SubResource( 7 )
+font_data = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=4]
 flags_vertex_lighting = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.478431, 0.34902, 0.34902, 1 )
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="CubeMesh" id=5]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.05, 0.05, 0.05 )
 
-[sub_resource type="Environment" id=4]
+[sub_resource type="Environment" id=7]
 background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=8]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
@@ -277,12 +272,12 @@ texture_hover = ExtResource( 16 )
 
 [node name="Distance" type="Label" parent="Control/Regle"]
 margin_left = -16.0
-margin_top = -16.0
+margin_top = -19.0
 margin_right = 4.0
-margin_bottom = 16.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 20, 32 )
-custom_styles/normal = SubResource( 6 )
-custom_fonts/font = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 3 )
 align = 1
 valign = 1
 __meta__ = {
@@ -292,12 +287,12 @@ __meta__ = {
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
-material_override = SubResource( 1 )
-mesh = SubResource( 2 )
+material_override = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="CameraGimbal" type="Spatial" parent="."]
 script = ExtResource( 2 )
@@ -327,11 +322,11 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 4 )
+environment = SubResource( 7 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 visible = false
-material_override = SubResource( 5 )
+material_override = SubResource( 8 )
 cast_shadow = 0
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
