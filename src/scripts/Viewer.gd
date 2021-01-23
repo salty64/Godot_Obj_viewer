@@ -11,8 +11,6 @@ func _ready():
 	pass
 
 
-
-
 func _on_MenuButton_obj_selected(obj_name):
 
 	var path = "../objects/" + obj_name
@@ -25,8 +23,3 @@ func _on_MenuButton_obj_selected(obj_name):
 
 	var obj_center = aabb.size / 2
 	$StaticBody.translation = - ( aabb.position + obj_center)
-
-
-
-
-
