@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -86,13 +86,13 @@ albedo_color = Color( 0.478431, 0.34902, 0.34902, 1 )
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="Environment" id=9]
+[sub_resource type="Environment" id=8]
 background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=9]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
@@ -288,7 +288,6 @@ __meta__ = {
 }
 
 [node name="Regle" type="Control" parent="Control"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -302,62 +301,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Line" type="Line2D" parent="Control/Regle"]
-points = PoolVector2Array( 0, 0, 100, 0 )
-width = 1.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
-begin_cap_mode = 1
-end_cap_mode = 2
-
-[node name="Handle_A" type="Line2D" parent="Control/Regle"]
-points = PoolVector2Array( 0, 0, 100, 0 )
-width = 1.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
-begin_cap_mode = 1
-end_cap_mode = 2
-
-[node name="Handle_B" type="Line2D" parent="Control/Regle"]
-points = PoolVector2Array( 0, 0, 100, 0 )
-width = 1.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
-begin_cap_mode = 1
-end_cap_mode = 2
-
-[node name="Handle_C" type="Line2D" parent="Control/Regle"]
-points = PoolVector2Array( 0, 0, 100, 0 )
-width = 1.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
-begin_cap_mode = 1
-end_cap_mode = 2
-
 [node name="A" type="TextureButton" parent="Control/Regle"]
-margin_left = -32.0
-margin_top = -16.0
-margin_right = 288.0
-margin_bottom = 304.0
-rect_min_size = Vector2( 20, 20 )
-rect_scale = Vector2( 0.05, 0.05 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 32, 32 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 action_mode = 0
-texture_normal = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="B" type="TextureButton" parent="Control/Regle"]
-margin_left = 100.0
-margin_top = -16.0
-margin_right = 420.0
-margin_bottom = 304.0
-rect_min_size = Vector2( 20, 20 )
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 52.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 32, 32 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+action_mode = 0
+
+[node name="C" type="TextureButton" parent="Control/Regle"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 350.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 32, 32 )
 rect_scale = Vector2( 0.1, 0.1 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 action_mode = 0
 texture_normal = ExtResource( 16 )
 
-[node name="Distance" type="Label" parent="Control/Regle"]
+[node name="Mesure" type="Label" parent="Control/Regle"]
 margin_left = -16.0
 margin_top = -19.0
 margin_right = 4.0
@@ -367,6 +346,7 @@ custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
 align = 1
 valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -412,12 +392,13 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 9 )
+environment = SubResource( 8 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 visible = false
-material_override = SubResource( 10 )
+material_override = SubResource( 9 )
 cast_shadow = 0
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
@@ -431,4 +412,6 @@ cast_shadow = 0
 [connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
 [connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]
 [connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
+[connection signal="button_down" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_down"]
+[connection signal="button_up" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_up"]
 [connection signal="zoom_value" from="CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
