@@ -15,11 +15,11 @@
    y="0px"
    viewBox="0 0 64 64"
    xml:space="preserve"
-   sodipodi:docname="vertical.svg"
+   sodipodi:docname="horizontal_disabled.svg"
    inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"><metadata
    id="metadata61"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
    id="defs59" /><sodipodi:namedview
    inkscape:document-rotation="0"
    pagecolor="#ffffff"
@@ -91,17 +91,17 @@
    id="g54">
 </g>
 <g
-   transform="matrix(0.99929388,0,0,0.92231016,0.73628079,2.5270857)"
-   id="g5901"><path
+   transform="matrix(0.92231016,0,0,0.99929388,3.1829064,0.02571989)"
+   id="g5281"><path
      inkscape:connector-curvature="0"
      id="path888"
-     d="M 31.288937,7.7288139 V 56.271186"
-     style="fill:#000000;fill-opacity:0;stroke:#5bf09b;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
+     d="M 7.0177509,32 H 55.560123"
+     style="fill:#000000;fill-opacity:0;stroke:#e6e6e6;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
      inkscape:connector-curvature="0"
      id="path871"
-     d="M 45.213209,5.9806339 H 17.364665"
+     d="M 5.2695709,18.075728 V 45.924272"
      style="fill:#999999;stroke:#999999;stroke-width:2.17293;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:56.6929;stroke-opacity:1" /><path
      style="fill:#999999;stroke:#999999;stroke-width:2.17293;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:56.6929;stroke-opacity:1"
-     d="M 45.213208,58.019366 H 17.364666"
+     d="M 57.308303,18.075729 V 45.924271"
      id="path871-9"
      inkscape:connector-curvature="0" /></g></svg>

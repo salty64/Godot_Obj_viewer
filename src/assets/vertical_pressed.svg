@@ -15,11 +15,11 @@
    y="0px"
    viewBox="0 0 64 64"
    xml:space="preserve"
-   sodipodi:docname="vertical.svg"
+   sodipodi:docname="vertical_pressed.svg"
    inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"><metadata
    id="metadata61"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
    id="defs59" /><sodipodi:namedview
    inkscape:document-rotation="0"
    pagecolor="#ffffff"
@@ -30,16 +30,16 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="2560"
-   inkscape:window-height="1377"
+   inkscape:window-width="1278"
+   inkscape:window-height="1368"
    id="namedview57"
    showgrid="false"
-   inkscape:zoom="7.375"
-   inkscape:cx="49.976849"
-   inkscape:cy="55.907691"
-   inkscape:window-x="-8"
-   inkscape:window-y="-8"
-   inkscape:window-maximized="1"
+   inkscape:zoom="9.203125"
+   inkscape:cx="32"
+   inkscape:cy="32"
+   inkscape:window-x="1273"
+   inkscape:window-y="0"
+   inkscape:window-maximized="0"
    inkscape:current-layer="Capa_1" />
 
 
@@ -92,11 +92,11 @@
 </g>
 <g
    transform="matrix(0.99929388,0,0,0.92231016,0.73628079,2.5270857)"
-   id="g5901"><path
+   id="g5286"><path
      inkscape:connector-curvature="0"
      id="path888"
      d="M 31.288937,7.7288139 V 56.271186"
-     style="fill:#000000;fill-opacity:0;stroke:#5bf09b;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
+     style="fill:#000000;fill-opacity:0;stroke:#25f059;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
      inkscape:connector-curvature="0"
      id="path871"
      d="M 45.213209,5.9806339 H 17.364665"
@@ -104,4 +104,9 @@
      style="fill:#999999;stroke:#999999;stroke-width:2.17293;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:56.6929;stroke-opacity:1"
      d="M 45.213208,58.019366 H 17.364666"
      id="path871-9"
-     inkscape:connector-curvature="0" /></g></svg>
+     inkscape:connector-curvature="0" /></g><path
+   style="fill:none;stroke:#6680ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="m 3.397001,62.5 c 57.205998,0 57.205998,0 57.205998,0"
+   id="path2853"
+   inkscape:connector-curvature="0"
+   sodipodi:nodetypes="cc" /></svg>

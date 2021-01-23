@@ -8,7 +8,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"
-   sodipodi:docname="angle.svg"
+   sodipodi:docname="angle_disabled.svg"
    xml:space="preserve"
    viewBox="0 0 64 64"
    y="0px"
@@ -140,7 +140,7 @@
    inkscape:connector-curvature="0"
    id="path1022"
    d="m 24.332725,33.19626 c 3.105111,3.454167 6.908336,12.151346 7.004284,15.447804"
-   style="fill:none;stroke:#6680ff;stroke-width:4.012;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
+   style="fill:none;stroke:#e6e6e6;stroke-width:4.012;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
    inkscape:connector-curvature="0"
    id="path888"
    d="M 42.053454,14.83768 7.728814,49.16232"
