@@ -104,13 +104,18 @@ func _physics_process(_delta):
 		
 		if raycast.is_colliding():
 			var normale = raycast.get_collision_normal()
+			
+			printt(raycast.transform.basis.z, normale)
 
 			var dir = camera.global_transform.basis.z
+			
+			var col_point = raycast.get_collision_point()
 
 			ig.clear()
 			ig.begin(Mesh.PRIMITIVE_LINES)
 			draw_line(Vector3.ZERO,dir*0.25,Color.red)
 			draw_line(Vector3.ZERO,normale*0.25,Color.violet)
+			draw_line(col_point, col_point+normale*0.25, Color.blue)
 			ig.end()
 	
 			var normal_x = Vector2(normale.x, normale.z)
