@@ -22,7 +22,7 @@ onready var C = $C
 onready var Mesure = $Mesure
 
 var label_hauteur = 64
-var label_largeur = 64
+var label_largeur = 80
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pool.append(Vector2(-100,0))
@@ -38,8 +38,13 @@ func _ready():
 func _process(_delta):
 
 	if visible :
+
+#		var c1 = $"../CameraGimbal/InnerGimbal/Camera".project_ray_origin(pool[0])
+#		var c2 = $"../CameraGimbal/InnerGimbal/Camera".project_ray_origin(pool[1])
+#
 		var distance = pool[0].distance_to(pool[1])
 		valeur_mesure = distance
+		
 		cursor_pos = get_viewport().get_mouse_position() - rect_global_position
 
 		if h :
@@ -78,7 +83,7 @@ func _process(_delta):
 				A.rect_position.x = B.rect_position.x
 				update()
 		elif o :
-			valeur_mesure = rad2deg((pool[0]+pool[1]).angle_to(pool[1]+pool[2]))
+			valeur_mesure = round(rad2deg((pool[1]+pool[0]).angle_to(pool[1]+pool[2])))
 			Mesure.rect_size =Vector2(label_largeur,label_hauteur)
 			Mesure.rect_position = pool[1] - Vector2(0,label_hauteur)
 	
@@ -152,6 +157,7 @@ func _on_Angle_toggled(button_pressed):
 	printt("o",button_pressed)
 	o = button_pressed
 	if o:
+		C.visible =button_pressed
 		pool[0]=(Vector2(0,-100))
 		pool[1]=(Vector2(0,0))
 		if pool.size() != 3 :
@@ -170,6 +176,9 @@ func _draw():
 			pool.remove(2)
 	else :
 		draw_arc(pool[2], 15, 0, 2*PI, 16,Color_cotation,2,true)
+		var angle_depart =  (pool[1]+Vector2(1,0)).angle_to((pool[1]+pool[2]))
+		var angle_arrive = (pool[1]+Vector2(0,-1)).angle_to((pool[1]+pool[2]))
+		draw_arc(pool[1], 50, angle_depart,angle_arrive , 16,Color_cotation,2,true)
 	draw_polyline ( pool, Color_cotation,2,true)
 
 	
