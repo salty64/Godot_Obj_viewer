@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/angle.svg-2fff80e318e0a0a0d73f59e35977584a.stex"
+path="res://.import/ruler.svg-06dd8ebb019ba1e2dcfa9e400c0f4316.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/angle.svg"
-dest_files=[ "res://.import/angle.svg-2fff80e318e0a0a0d73f59e35977584a.stex" ]
+source_file="res://assets/ruler.svg"
+dest_files=[ "res://.import/ruler.svg-06dd8ebb019ba1e2dcfa9e400c0f4316.stex" ]
 
 [params]
 
