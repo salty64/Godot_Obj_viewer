@@ -7,15 +7,16 @@ var o := false
 var h := false
 var v := false
 var cursor_pos 
-var Boxstyle
+
+var A : Vector2
+var B : Vector2
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Boxstyle = StyleBoxFlat.new()
-	Boxstyle.set_bg_color("#00000000")
-	Boxstyle.set_border_color("#6680ff")
-	
+	#Boxstyle.set_border_color("#6680ff")
+	pass
 
 
 
@@ -84,36 +85,43 @@ func _on_B_button_up():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
+
+
+func Arrow(A:Vector2,B:Vector2):
+	$Line.set_point_position(0,A)
+	$Line.set_point_position(1,B)
+	update()
+	if h:
+		
+		pass
+	if v:
+		pass	
+
 func _on_Horizontal_toggled(button_pressed):
 	printt("h",button_pressed)
 	h = button_pressed
-	if h :
-		$Line.set_point_position(0,Vector2(-100,0))
-		$Line.set_point_position(1,Vector2(100,0))
-		$A.rect_position= Vector2(-100,0)+Vector2(-32,-16)
-		$B.rect_position= Vector2(100,0)+Vector2(0,-16)
-		Boxstyle.set_border_width(MARGIN_LEFT,2)
-		Boxstyle.set_border_width(MARGIN_RIGHT,2)
-		Boxstyle.set_border_width(MARGIN_TOP,0)
-		Boxstyle.set_border_width(MARGIN_BOTTOM,0)
-		$Distance.set('custom_styles/normal', Boxstyle)
-
+#	if h :
+#		$Line.set_point_position(0,Vector2(-100,0))
+#		$Line.set_point_position(1,Vector2(100,0))
+#		$A.rect_position= Vector2(-100,0)+Vector2(-32,-16)
+#		$B.rect_position= Vector2(100,0)+Vector2(0,-16)
 
 func _on_Vertical_toggled(button_pressed):
 	printt("v",button_pressed)
 	v = button_pressed
-	if v:
-		$Line.set_point_position(0,Vector2(0,100))
-		$Line.set_point_position(1,Vector2(0,-100))
-		$A.rect_position= Vector2(0,-100)+Vector2(-16,-32)
-		$B.rect_position= Vector2(0,100)+Vector2(-16,0)
-		Boxstyle.set_border_width(MARGIN_LEFT,0)
-		Boxstyle.set_border_width(MARGIN_RIGHT,0)
-		Boxstyle.set_border_width(MARGIN_TOP,2)
-		Boxstyle.set_border_width(MARGIN_BOTTOM,2)
-		$Distance.set('custom_styles/normal', Boxstyle)
+#	if v:
+#		$Line.set_point_position(0,Vector2(0,100))
+#		$Line.set_point_position(1,Vector2(0,-100))
+#		$A.rect_position= Vector2(0,-100)+Vector2(-16,-32)
+#		$B.rect_position= Vector2(0,100)+Vector2(-16,0)
 
 
 func _on_Angle_toggled(button_pressed):
 	printt("o",button_pressed)
 	o = button_pressed
+
+func _draw():
+	draw_circle(A,10,"#AAACCC")
+	draw_circle(B,10,"#AAACCC")
+	
+	

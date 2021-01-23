@@ -11,12 +11,19 @@
    inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"
    id="svg8"
    version="1.1"
-   viewBox="0 0 16.933333 16.933334"
-   height="64"
-   width="64">
+   viewBox="0 0 8.4666665 8.466667"
+   height="32"
+   width="32">
   <defs
      id="defs2" />
   <sodipodi:namedview
+     inkscape:pagecheckerboard="false"
+     borderlayer="false"
+     showborder="true"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
      inkscape:window-maximized="0"
      inkscape:window-y="14"
      inkscape:window-x="88"
@@ -26,9 +33,9 @@
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="35.685668"
-     inkscape:cx="26.500016"
+     inkscape:document-units="px"
+     inkscape:cy="25.459868"
+     inkscape:cx="26.502011"
      inkscape:zoom="15.839192"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -49,13 +56,16 @@
     </rdf:RDF>
   </metadata>
   <g
+     transform="translate(5.2785873e-4,-0.03288078)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Calque 1">
-    <path
-       transform="scale(0.26458333)"
-       d="M 32 0 A 31.999998 31.999998 0 0 0 0 32 A 31.999998 31.999998 0 0 0 32 64 A 31.999998 31.999998 0 0 0 64 32 A 31.999998 31.999998 0 0 0 32 0 z M 31.855469 2 A 30 30 0 0 1 32 2 A 30 30 0 0 1 62 32 A 30 30 0 0 1 32 62 A 30 30 0 0 1 2 32 A 30 30 0 0 1 31.855469 2 z "
-       style="fill:#6680ff;fill-opacity:1;stroke:none;stroke-width:4.75877;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:56.6929;stroke-opacity:1;paint-order:fill markers stroke"
-       id="path10" />
+    <ellipse
+       ry="3.7332404"
+       rx="3.7332399"
+       cy="4.2662144"
+       cx="4.2328057"
+       id="path2650"
+       style="fill:none;fill-opacity:1;stroke:#6680ff;stroke-width:1.00019;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" />
   </g>
 </svg>
