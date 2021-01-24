@@ -22,6 +22,7 @@ func _on_Ruler_toggled(button_pressed):
 	
 	$Toolbar/Panel/cotation/Horizontal.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Vertical.disabled=!button_pressed
+	$Toolbar/Panel/cotation/Libre.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Angle.disabled=!button_pressed
 	
 	$Regle.visible = button_pressed
