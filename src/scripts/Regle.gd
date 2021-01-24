@@ -34,6 +34,7 @@ var c2
 var label_hauteur = 100
 var label_largeur = 100
 
+var middle_point = Vector2(0,0)
 
 func _ready():
 	pool.append(Vector2(-100,0))
@@ -54,15 +55,19 @@ func _physics_process(_delta):
 func _process(_delta):
 
 	if visible :
-		var distance = pool[0].distance_to(pool[1])
-		if h or v :
-			valeur_mesure = stepify((1000 * c1.distance_to(c2)),0.1)
+		
+#		var distance = pool[0].distance_to(pool[1])
 
 		cursor_pos = get_viewport().get_mouse_position() - rect_global_position
 
+		if h or v or l :
+			valeur_mesure = stepify((1000 * c1.distance_to(c2)),0.1)
+			middle_point = pool[0] - (pool[0]-pool[1])/2
+		else :
+			middle_point = Vector2((pool[0].x+pool[1].x+pool[2].x)/3,(pool[0].y+pool[1].y+ pool[2].y)/3)
+
 		if h :
-			Mesure.rect_size =Vector2(distance,label_hauteur)
-			Mesure.rect_position = pool[0] - Vector2(0,label_hauteur/2)
+
 			if a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
@@ -76,8 +81,7 @@ func _process(_delta):
 				A.rect_position.y = B.rect_position.y
 				update()
 		elif v :
-			Mesure.rect_size =Vector2(label_largeur,distance)
-			Mesure.rect_position = pool[0] - Vector2(label_largeur/2,0)
+
 			if a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
@@ -91,8 +95,7 @@ func _process(_delta):
 				A.rect_position.x = B.rect_position.x
 				update()
 		elif l:
-			Mesure.rect_size =Vector2(distance,label_hauteur)
-			Mesure.rect_position = pool[0] - Vector2(0,label_hauteur/2)
+
 			if a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
@@ -102,6 +105,7 @@ func _process(_delta):
 				B.rect_position = pool[1] - B.rect_size/2
 				update()
 		elif o :
+			
 			if a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
@@ -120,10 +124,10 @@ func _process(_delta):
 			var alpha = v1.angle_to(v2)
 			
 			valeur_mesure = stepify(abs(rad2deg(alpha)),0.1)
-			
-			Mesure.rect_size =Vector2(label_largeur,label_hauteur)
-			Mesure.rect_position = pool[1] - Vector2(0,label_hauteur)
 
+
+		Mesure.rect_size =Vector2(label_largeur,label_hauteur)
+		Mesure.rect_position = middle_point + Vector2(-Mesure.rect_size.x/2,-Mesure.rect_size.y/2)
 		Mesure.text= str(valeur_mesure)
 
 
@@ -217,13 +221,12 @@ func _draw():
 		var v2 = (pool[2]-pool[1]).normalized()
 		var angle_depart = Vector2(1,0).angle_to(v1)
 		var angle_arrive = Vector2(1,0).angle_to(v2)
-#		if v1.angle_to(v2) < 0 :
-#			angle_depart = Vector2(1,0).angle_to(v1)
-#			angle_arrive = Vector2(1,0).angle_to(v2)
-		
-		draw_arc(pool[1], 50, angle_depart,angle_arrive , 16,Color_cotation,2,true)
+		draw_arc(pool[1], 30, angle_depart,angle_arrive , 16,Color_cotation,2,true)
+
+	
 	draw_polyline ( pool, Color_cotation,2,true)
 
+	
 	
 
 

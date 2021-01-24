@@ -142,6 +142,9 @@ margin_left = -320.0
 margin_right = 384.0
 margin_bottom = 64.0
 theme = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="cotation" type="Panel" parent="Control/Toolbar/Panel"]
 margin_left = 288.0
@@ -333,6 +336,8 @@ margin_left = -16.0
 margin_top = -19.0
 margin_right = 4.0
 margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 20, 32 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
