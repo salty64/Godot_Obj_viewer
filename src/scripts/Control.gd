@@ -39,7 +39,5 @@ func _on_Transparence_toggled(button_pressed):
 	else:
 		mat.flags_transparent = false
 		mat.albedo_color.a = 1
-	
-	print (color)
 	$"../StaticBody/Object".set_surface_material(0, mat)
 	

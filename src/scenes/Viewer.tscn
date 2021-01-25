@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/cube.svg" type="Texture" id=25]
 [ext_resource path="res://assets/cube_pressed.svg" type="Texture" id=26]
 [ext_resource path="res://assets/jaune.tres" type="Material" id=27]
+[ext_resource path="res://assets/red.tres" type="Material" id=28]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
@@ -83,6 +84,11 @@ tracks/1/keys = {
 "values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="SpatialMaterial" id=8]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 0.611765, 0.254902, 0.254902, 1 )
+
 [sub_resource type="CubeMesh" id=6]
 size = Vector3( 0.1, 0.1, 0.1 )
 
@@ -91,10 +97,6 @@ background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
-
-[sub_resource type="SpatialMaterial" id=8]
-flags_unshaded = true
-vertex_color_use_as_albedo = true
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 3 )
@@ -362,12 +364,19 @@ anims/Deploy = SubResource( 5 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+visible = false
+material_override = SubResource( 8 )
+
 [node name="Object" type="MeshInstance" parent="StaticBody"]
 material_override = ExtResource( 27 )
+generate_lightmap = false
 mesh = SubResource( 6 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+
+[node name="IG_vertex" type="ImmediateGeometry" parent="StaticBody"]
 
 [node name="CameraGimbal" type="Spatial" parent="."]
 script = ExtResource( 2 )
@@ -401,8 +410,9 @@ environment = SubResource( 7 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 visible = false
-material_override = SubResource( 8 )
+material_override = ExtResource( 28 )
 cast_shadow = 0
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
