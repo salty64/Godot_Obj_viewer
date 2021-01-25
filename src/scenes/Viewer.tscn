@@ -364,7 +364,6 @@ anims/Deploy = SubResource( 5 )
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
 material_override = ExtResource( 27 )
-generate_lightmap = false
 mesh = SubResource( 6 )
 material/0 = null
 
@@ -404,7 +403,6 @@ environment = SubResource( 7 )
 visible = false
 material_override = SubResource( 8 )
 cast_shadow = 0
-
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
