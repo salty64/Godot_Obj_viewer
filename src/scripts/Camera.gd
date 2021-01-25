@@ -48,14 +48,14 @@ onready var timer = $Timer
 
 
 func set_zoom(z:float):
-	
 	zoom = clamp(z, zoom_min, zoom_max)
 
-	if zoom == zoom_home :
+	if is_equal_approx(zoom, zoom_home) :
 		tween_zoom.interpolate_property(camera, "size", null, zoom, 1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 		tween_zoom.start()
 	else :
 		camera.size = zoom
+
 	emit_signal("zoom_value", zoom)
 
 func add_zoom(z:float):
@@ -70,22 +70,17 @@ func draw_line(v:Vector3, v1:Vector3, c:Color):
 	ig.set_color(c)
 	ig.add_vertex(v)
 	ig.add_vertex(v1)
-
-
 	
 func _unhandled_input(event):
-	
 	if (event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_UP):
 		add_zoom(-zoom_speed)
 	if (event is InputEventMouseButton && event.button_index == BUTTON_WHEEL_DOWN):
 		add_zoom(zoom_speed)
 	
-	
 	if (event is InputEventMouseButton && event.button_index == BUTTON_RIGHT && event.pressed):
 		mouse_rotate_button = true
 	if (event is InputEventMouseButton && event.button_index == BUTTON_RIGHT && !event.pressed):
-		mouse_rotate_button = false
-	
+		mouse_rotate_button = false	
 
 	if event is InputEventMouseMotion:
 		mouse_speed = event.relative
@@ -163,7 +158,6 @@ func _process(_delta):
 		
 		tween.start()
 
-
 	if Input.is_action_pressed("ui_left"):
 		self.rotation.y = self.rotation.y + deg2rad(5)
 
@@ -176,22 +170,16 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_down"):
 		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(5)
 
-
-
-
 func _on_Zoom_Moins_pressed():
 	add_zoom(zoom_speed)
 
 func _on_Zoom_Plus_pressed():
 	add_zoom(-zoom_speed)
 
-
-func _on_VSlider_value_changed(value):
-	
-	if value !=zoom :
+func _on_VSlider_value_changed(value:float):
+	if !is_equal_approx(value, zoom) :
 		set_zoom(value)
 		
-
 
 func _on_Zoom_Init_button_down():
 	set_zoom(zoom_home)
