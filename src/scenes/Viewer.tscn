@@ -363,8 +363,10 @@ anims/Deploy = SubResource( 5 )
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
+material_override = ExtResource( 27 )
+generate_lightmap = false
 mesh = SubResource( 7 )
-material/0 = ExtResource( 27 )
+material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 

@@ -34,8 +34,10 @@ func _on_Transparence_toggled(button_pressed):
 	var color = Color(mat.albedo_color)
 	
 	if button_pressed:
+		mat.flags_transparent = true
 		mat.albedo_color.a= 0.5
 	else:
+		mat.flags_transparent = false
 		mat.albedo_color.a = 1
 	
 	print (color)
