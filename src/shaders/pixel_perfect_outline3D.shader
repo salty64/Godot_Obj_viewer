@@ -1,7 +1,4 @@
-[gd_resource type="SpatialMaterial" load_steps=3 format=2]
-
-[sub_resource type="Shader" id=1]
-code = "shader_type spatial;
+shader_type spatial;
 render_mode cull_front, unshaded;
 
 uniform vec4 outline_color : hint_color;
@@ -23,17 +20,4 @@ void fragment() {
 	if(outline_color.a < 1.0) {
 		ALPHA = outline_color.a;
 	}
-}"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/outline_color = Color( 0.368627, 0.301961, 0, 1 )
-shader_param/outline_width = 1.0
-
-[resource]
-next_pass = SubResource( 2 )
-flags_vertex_lighting = true
-vertex_color_use_as_albedo = true
-albedo_color = Color( 0.858824, 0.686275, 0.121569, 1 )
-metallic = 0.23
-roughness = 0.43
+}
