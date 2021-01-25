@@ -50,11 +50,7 @@ onready var timer = $Timer
 func set_zoom(z:float):
 	zoom = clamp(z, zoom_min, zoom_max)
 
-	if is_equal_approx(zoom, zoom_home) :
-		tween_zoom.interpolate_property(camera, "size", null, zoom, 1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-		tween_zoom.start()
-	else :
-		camera.size = zoom
+	camera.size = zoom
 
 	emit_signal("zoom_value", zoom)
 
@@ -149,7 +145,6 @@ func _process(_delta):
 	
 
 	if Input.is_action_just_pressed("ui_home"):
-		
 		finalAngle = deg2rad(camera_y_home)
 		tween.interpolate_property(self, "rotation:y", null, finalAngle, 0.7, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 		
@@ -180,6 +175,9 @@ func _on_VSlider_value_changed(value:float):
 	if !is_equal_approx(value, zoom) :
 		set_zoom(value)
 		
-
 func _on_Zoom_Init_button_down():
-	set_zoom(zoom_home)
+	if !is_equal_approx(zoom, zoom_home) :
+		tween_zoom.interpolate_property(camera, "size", null, zoom_home, 1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+		tween_zoom.start()
+	
+		emit_signal("zoom_value", zoom_home)
