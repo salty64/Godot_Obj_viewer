@@ -395,7 +395,6 @@ environment = SubResource( 8 )
 visible = false
 material_override = SubResource( 9 )
 cast_shadow = 0
-
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
