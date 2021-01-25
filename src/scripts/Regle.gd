@@ -61,7 +61,7 @@ func _process(_delta):
 		cursor_pos = get_viewport().get_mouse_position() - rect_global_position
 
 		if h or v or l :
-			valeur_mesure = stepify((1000 * c1.distance_to(c2)),0.1)
+			valeur_mesure = stepify((500 * c1.distance_to(c2)),0.1)
 			middle_point = pool[0] - (pool[0]-pool[1])/2
 		else :
 			middle_point = Vector2((pool[0].x+pool[1].x+pool[2].x)/3,(pool[0].y+pool[1].y+ pool[2].y)/3)

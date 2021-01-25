@@ -19,6 +19,18 @@ func _ready():
 	pass
 
 
+func _init():
+	VisualServer.set_debug_generate_wireframes(true)
+
+
+
+func _input(event):
+			
+	if event is InputEventKey and Input.is_key_pressed(KEY_P):
+		var vp = get_viewport()
+		vp.debug_draw = (vp.debug_draw + 1 ) % 4
+		
+
 func _on_MenuButton_obj_selected(obj_name):
 	var path = dirPath + obj_name
 	
@@ -68,7 +80,7 @@ func _on_MenuButton_obj_selected(obj_name):
 		var a = verticies[i*3].distance_to(verticies[i*3+1])
 		var b = verticies[i*3+1].distance_to(verticies[i*3+2])
 		var c = verticies[i*3+2].distance_to(verticies[i*3])
-		ig.set_color(Color.red)
+		ig.set_color(Color.black)
 		
 		
 		
@@ -116,7 +128,7 @@ func _on_MenuButton_obj_selected(obj_name):
 		
 		i += 1
 	ig.end()
-	var sf = 1.000000001
+	var sf = 2.0000011
 	ig.set_scale(Vector3(sf, sf, sf))
 
 
