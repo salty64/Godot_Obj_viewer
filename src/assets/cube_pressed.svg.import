@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cube.svg-ab8e789f56d2b3000c7973e70a832118.stex"
+path="res://.import/cube_pressed.svg-ac31d6ebf7ba46c14bc018a65005e815.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cube.svg"
-dest_files=[ "res://.import/cube.svg-ab8e789f56d2b3000c7973e70a832118.stex" ]
+source_file="res://assets/cube_pressed.svg"
+dest_files=[ "res://.import/cube_pressed.svg-ac31d6ebf7ba46c14bc018a65005e815.stex" ]
 
 [params]
 

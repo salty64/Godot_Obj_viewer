@@ -2,7 +2,7 @@ extends MenuButton
 
 
 var object_list
-var obj_icon = load("res://assets/cube.svg") 
+var obj_icon = load("res://assets/menu_cube.svg") 
 var menu
 
 signal obj_selected (obj_name)
@@ -10,7 +10,7 @@ signal obj_selected (obj_name)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	menu = self.get_popup()
-
+	
 	object_list = list_files_in_directory("../objects/")
 	
 	for object in object_list :

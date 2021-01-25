@@ -8,7 +8,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:version="1.0rc1 (09960d6f05, 2020-04-09)"
-   sodipodi:docname="cube.svg"
+   sodipodi:docname="cube_pressed.svg"
    xml:space="preserve"
    viewBox="0 0 64 64"
    y="0px"
@@ -19,7 +19,7 @@
    height="64"><metadata
    id="metadata43"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
    id="defs41" /><sodipodi:namedview
    inkscape:current-layer="Capa_1"
    inkscape:window-maximized="0"
@@ -44,15 +44,16 @@
 
 
 <g
+   style="stroke:#6680ff;stroke-opacity:1;stroke-width:18.8800006;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round;stroke-linejoin:round;fill:none"
    id="g850"
    transform="matrix(0.1059322,0,0,0.1059322,7.0000008,7.0000008)"><polygon
-     style="fill:#5bf09b;fill-opacity:1"
+     style="fill:none;fill-opacity:1;stroke:#6680ff;stroke-opacity:1;stroke-width:18.8800006;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round;stroke-linejoin:round"
      points="468,96 236,192 4,96 236,0 "
      id="polygon2" /><polygon
-     style="fill:#6e68f0;fill-opacity:1"
+     style="fill:none;fill-opacity:1;stroke:#6680ff;stroke-opacity:1;stroke-width:18.8800006;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round;stroke-linejoin:round"
      points="4,376 4,96 236,192 236,472 "
      id="polygon4" /><polygon
-     style="fill:#f06f65;fill-opacity:1"
+     style="fill:none;fill-opacity:1;stroke:#6680ff;stroke-opacity:1;stroke-width:18.8800006;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round;stroke-linejoin:round"
      points="236,472 236,192 468,96 468,376 "
      id="polygon6" /></g>
 <g
