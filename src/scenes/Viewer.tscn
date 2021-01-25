@@ -83,16 +83,16 @@ tracks/1/keys = {
 "values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CubeMesh" id=7]
+[sub_resource type="CubeMesh" id=6]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=7]
 background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
 ambient_light_energy = 2.0
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=8]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
@@ -365,7 +365,7 @@ anims/Deploy = SubResource( 5 )
 [node name="Object" type="MeshInstance" parent="StaticBody"]
 material_override = ExtResource( 27 )
 generate_lightmap = false
-mesh = SubResource( 7 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
@@ -398,12 +398,13 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = SubResource( 7 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 visible = false
-material_override = SubResource( 9 )
+material_override = SubResource( 8 )
 cast_shadow = 0
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]

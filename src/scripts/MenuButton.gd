@@ -1,6 +1,6 @@
 extends MenuButton
 
-var obj_icon = load("res://assets/cube.svg")
+var obj_icon = load("res://assets/menu_cube.svg")
 
 var menu
 
