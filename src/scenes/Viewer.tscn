@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://assets/angle_pressed.svg" type="Texture" id=22]
 [ext_resource path="res://assets/angle_disabled.svg" type="Texture" id=23]
 [ext_resource path="res://assets/libre_disabled.svg" type="Texture" id=24]
+[ext_resource path="res://assets/cube.svg" type="Texture" id=25]
+[ext_resource path="res://assets/cube_pressed.svg" type="Texture" id=26]
+[ext_resource path="res://assets/jaune.tres" type="Material" id=27]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
@@ -79,13 +82,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
 }
-
-[sub_resource type="SpatialMaterial" id=6]
-flags_vertex_lighting = true
-vertex_color_use_as_albedo = true
-albedo_color = Color( 0.858824, 0.686275, 0.121569, 1 )
-metallic = 0.23
-roughness = 0.43
 
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 0.1, 0.1, 0.1 )
@@ -284,10 +280,18 @@ __meta__ = {
 margin_left = 704.0
 margin_right = 768.0
 margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Transparence" type="TextureButton" parent="Control/Toolbar/Panel/X-ray"]
 margin_right = 64.0
 margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_scale = Vector2( 0.1, 0.1 )
+toggle_mode = true
+texture_normal = ExtResource( 25 )
+texture_pressed = ExtResource( 26 )
 
 [node name="Regle" type="Control" parent="Control"]
 anchor_left = 0.5
@@ -359,9 +363,8 @@ anims/Deploy = SubResource( 5 )
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
-material_override = SubResource( 6 )
 mesh = SubResource( 7 )
-material/0 = null
+material/0 = ExtResource( 27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 
@@ -409,6 +412,7 @@ cast_shadow = 0
 [connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Plus" to="CameraGimbal" method="_on_Zoom_Plus_pressed"]
 [connection signal="value_changed" from="Control/Toolbar/Panel/zoom/VSlider" to="CameraGimbal" method="_on_VSlider_value_changed"]
 [connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Moins" to="CameraGimbal" method="_on_Zoom_Moins_pressed"]
+[connection signal="toggled" from="Control/Toolbar/Panel/X-ray/Transparence" to="Control" method="_on_Transparence_toggled"]
 [connection signal="button_down" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_down"]
 [connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
 [connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]

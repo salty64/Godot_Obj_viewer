@@ -27,3 +27,17 @@ func _on_Ruler_toggled(button_pressed):
 	
 	$Regle.visible = button_pressed
 	$Toolbar/Panel/cotation/Horizontal.pressed = button_pressed
+
+
+func _on_Transparence_toggled(button_pressed):
+	var mat = $"../StaticBody/Object".get_active_material(0)
+	var color = Color(mat.albedo_color)
+	
+	if button_pressed:
+		mat.albedo_color.a= 0.5
+	else:
+		mat.albedo_color.a = 1
+	
+	print (color)
+	$"../StaticBody/Object".set_surface_material(0, mat)
+	
