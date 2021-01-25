@@ -84,15 +84,15 @@ tracks/1/keys = {
 "values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=6]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.611765, 0.254902, 0.254902, 1 )
 
-[sub_resource type="CubeMesh" id=6]
+[sub_resource type="PrismMesh" id=9]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="Environment" id=7]
+[sub_resource type="Environment" id=8]
 background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
 ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
@@ -366,15 +366,17 @@ anims/Deploy = SubResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
 visible = false
-material_override = SubResource( 8 )
+material_override = SubResource( 6 )
 
 [node name="Object" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 material_override = ExtResource( 27 )
 generate_lightmap = false
-mesh = SubResource( 6 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="IG_vertex" type="ImmediateGeometry" parent="StaticBody"]
 
@@ -406,7 +408,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 7 )
+environment = SubResource( 8 )
 
 [node name="IG" type="ImmediateGeometry" parent="."]
 visible = false
