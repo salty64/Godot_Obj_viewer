@@ -20,7 +20,7 @@ func _on_Ruler_toggled(button_pressed):
 	else :
 		$"../AnimationPlayer".play_backwards("Deploy")
 	
-	$Toolbar/Panel/cotation/Horizontal.disabled=!button_pressed
+#	$Toolbar/Panel/cotation/Horizontal.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Vertical.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Libre.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Angle.disabled=!button_pressed
@@ -30,14 +30,16 @@ func _on_Ruler_toggled(button_pressed):
 
 
 func _on_Transparence_toggled(button_pressed):
-	var mat = $"../StaticBody/Object".get_active_material(0)
-	var color = Color(mat.albedo_color)
-	
-	if button_pressed:
-		mat.flags_transparent = true
-		mat.albedo_color.a= 0.5
-	else:
-		mat.flags_transparent = false
-		mat.albedo_color.a = 1
-	$"../StaticBody/Object".set_surface_material(0, mat)
+	var vp = get_viewport()
+	vp.debug_draw = (vp.debug_draw + 1 ) % 4
+#	var mat = $"../StaticBody/Object".get_active_material(0)
+#	var color = Color(mat.albedo_color)
+#
+#	if button_pressed:
+#		mat.flags_transparent = true
+#		mat.albedo_color.a= 0.5
+#	else:
+#		mat.flags_transparent = false
+#		mat.albedo_color.a = 1
+#	$"../StaticBody/Object".set_surface_material(0, mat)
 	

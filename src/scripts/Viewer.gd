@@ -12,10 +12,13 @@ func _ready():
 	
 	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
 		$Control/ScrollContainer/MenuButton.list_files_in_directory(dir)
+		
 	else:
 		print("Failed to open directory : " + dirPath)
 	
-	resetShape()
+	if $StaticBody/CollisionShape.shape :
+		resetShape()
+	
 	pass
 
 
@@ -24,12 +27,6 @@ func _init():
 
 
 
-func _input(event):
-			
-	if event is InputEventKey and Input.is_key_pressed(KEY_P):
-		var vp = get_viewport()
-		vp.debug_draw = (vp.debug_draw + 1 ) % 4
-		
 
 func _on_MenuButton_obj_selected(obj_name):
 	var path = dirPath + obj_name
