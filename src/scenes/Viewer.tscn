@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -89,9 +89,6 @@ flags_unshaded = true
 vertex_color_use_as_albedo = true
 albedo_color = Color( 0.611765, 0.254902, 0.254902, 1 )
 
-[sub_resource type="PrismMesh" id=9]
-size = Vector3( 0.1, 0.1, 0.1 )
-
 [sub_resource type="Environment" id=8]
 background_mode = 1
 background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
@@ -100,6 +97,11 @@ ambient_light_energy = 2.0
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0, 0, 1 )
+shadow_enabled = true
+shadow_reverse_cull_face = true
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -123,6 +125,9 @@ __meta__ = {
 }
 
 [node name="MenuButton" parent="Control/ScrollContainer" instance=ExtResource( 1 )]
+margin_bottom = 64.0
+rect_min_size = Vector2( 200, 64 )
+align = 1
 
 [node name="Toolbar" type="Control" parent="Control"]
 anchor_right = 1.0
@@ -372,13 +377,12 @@ material_override = SubResource( 6 )
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 material_override = ExtResource( 27 )
 generate_lightmap = false
-mesh = SubResource( 9 )
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="IG_vertex" type="ImmediateGeometry" parent="StaticBody"]
+visible = false
 
 [node name="CameraGimbal" type="Spatial" parent="."]
 script = ExtResource( 2 )
@@ -395,9 +399,6 @@ near = 0.01
 [node name="RayCast" type="RayCast" parent="CameraGimbal/InnerGimbal/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal/InnerGimbal/Camera"]
-transform = Transform( 0.934714, 0, -0.355401, 0, 1, 0, 0.355401, 0, 0.934714, 0, 0, 0 )
 
 [node name="Tween" type="Tween" parent="CameraGimbal"]
 

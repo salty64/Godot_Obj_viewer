@@ -47,7 +47,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if visible :
-		if h or v :
+		if h or v or l:
 			c1 = camera.project_ray_origin(pool[0])
 			c2 = camera.project_ray_origin(pool[1])
 			
@@ -62,6 +62,7 @@ func _process(_delta):
 
 		if h or v or l :
 			valeur_mesure = stepify((500 * c1.distance_to(c2)),0.1)
+			print (valeur_mesure)
 			middle_point = pool[0] - (pool[0]-pool[1])/2
 		else :
 			middle_point = Vector2((pool[0].x+pool[1].x+pool[2].x)/3,(pool[0].y+pool[1].y+ pool[2].y)/3)
@@ -95,7 +96,7 @@ func _process(_delta):
 				A.rect_position.x = B.rect_position.x
 				update()
 		elif l:
-
+			
 			if a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
