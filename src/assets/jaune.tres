@@ -2,7 +2,7 @@
 
 [resource]
 flags_vertex_lighting = true
+flags_ensure_correct_normals = true
 vertex_color_use_as_albedo = true
-albedo_color = Color( 0.882353, 0.713726, 0.152941, 1 )
-metallic = 0.23
-roughness = 0.43
+albedo_color = Color( 0.658824, 0.596078, 0.168627, 1 )
+uv1_triplanar = true

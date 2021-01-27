@@ -96,7 +96,7 @@ func _physics_process(_delta):
 		if raycast.is_colliding():
 			var normale = raycast.get_collision_normal()
 			
-			printt(raycast.transform.basis.z, normale)
+#			printt(raycast.transform.basis.z, normale)
 
 			var dir = camera.global_transform.basis.z
 			

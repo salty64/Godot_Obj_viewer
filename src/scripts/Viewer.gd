@@ -49,8 +49,6 @@ func _on_MenuButton_obj_selected(obj_name):
 	var nb_vertex = mdt.get_vertex_count()
 	
 
-	$StaticBody/MeshInstance.mesh = piece.create_outline(0.0001)
-#	
 	
 	var ig = $StaticBody/IG_vertex
 	var sm = SpatialMaterial.new()
