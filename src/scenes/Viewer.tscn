@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -26,23 +26,47 @@
 [ext_resource path="res://assets/libre_disabled.svg" type="Texture" id=24]
 [ext_resource path="res://assets/cube.svg" type="Texture" id=25]
 [ext_resource path="res://assets/cube_pressed.svg" type="Texture" id=26]
-[ext_resource path="res://assets/jaune.tres" type="Material" id=27]
 [ext_resource path="res://assets/red.tres" type="Material" id=28]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec3 col0 = texture(TEXTURE, UV).xyz;
+	
+    vec3 col = -8.0 * texture(TEXTURE, UV).xyz;
+    col += texture(TEXTURE, UV + vec2(0.0, SCREEN_PIXEL_SIZE.y)).xyz;
+    col += texture(TEXTURE, UV + vec2(0.0, -SCREEN_PIXEL_SIZE.y)).xyz;
+    col += texture(TEXTURE, UV + vec2(SCREEN_PIXEL_SIZE.x, 0.0)).xyz;
+    col += texture(TEXTURE, UV + vec2(-SCREEN_PIXEL_SIZE.x, 0.0)).xyz;
+    col += texture(TEXTURE, UV + SCREEN_PIXEL_SIZE.xy).xyz;
+    col += texture(TEXTURE, UV - SCREEN_PIXEL_SIZE.xy).xyz;
+    col += texture(TEXTURE, UV + vec2(-SCREEN_PIXEL_SIZE.x, SCREEN_PIXEL_SIZE.y)).xyz;
+    col += texture(TEXTURE, UV + vec2(SCREEN_PIXEL_SIZE.x, -SCREEN_PIXEL_SIZE.y)).xyz;
+	
+	if (length(col) > 0.01){
+		COLOR.xyz = vec3(0.8, 0.8, 0.8);
+	}else{
+		COLOR.xyz = col0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
 
-[sub_resource type="DynamicFontData" id=2]
+[sub_resource type="DynamicFontData" id=4]
 font_path = "res://themes/fonts/FiraSans-Bold.ttf"
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 outline_size = 1
 outline_color = Color( 0.215686, 0.215686, 0.219608, 1 )
-font_data = SubResource( 2 )
+font_data = SubResource( 4 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "Close"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/Toolbar/Panel/cotation:rect_position")
 tracks/0/interp = 1
@@ -56,8 +80,7 @@ tracks/0/keys = {
 "values": [ Vector2( 288, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Deploy"
+[sub_resource type="Animation" id=7]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/Toolbar/Panel/cotation/Horizontal:visible")
@@ -84,16 +107,54 @@ tracks/1/keys = {
 "values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Environment" id=6]
-background_mode = 1
-background_color = Color( 0.447059, 0.486275, 0.501961, 1 )
-ambient_light_color = Color( 0.960784, 0.913725, 0.913725, 1 )
-ambient_light_energy = 2.0
+[sub_resource type="Shader" id=8]
+code = "shader_type spatial;
 
-[node name="Spatial" type="Spatial"]
+const float near = 0.1; 
+const float far  = 100.0;
+
+float LinearizeDepth(float depth){
+	float z = depth * 2.0 - 1.0; // back to NDC 
+	return (2.0 * near * far) / (far + near - z * (far - near));
+}
+
+void fragment(){
+	float depth = LinearizeDepth(FRAGCOORD.z) / far;
+	
+	float len = length(cross(vec3(depth), NORMAL));
+	
+	ALBEDO = vec3(0.66, 0.6, 0.17*len);
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 0.1, 0.1, 0.1 )
+
+[sub_resource type="Environment" id=11]
+background_mode = 1
+background_color = Color( 0.45098, 0.490196, 0.501961, 1 )
+
+[node name="ViewportContainer" type="ViewportContainer"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1600, 900 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Spatial" type="Spatial" parent="Viewport"]
 script = ExtResource( 3 )
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="Viewport/Spatial"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -103,7 +164,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Viewport/Spatial/Control"]
 margin_right = 247.0
 margin_bottom = 115.0
 rect_min_size = Vector2( 0, 64 )
@@ -114,18 +175,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuButton" parent="Control/ScrollContainer" instance=ExtResource( 1 )]
+[node name="MenuButton" parent="Viewport/Spatial/Control/ScrollContainer" instance=ExtResource( 1 )]
 margin_bottom = 64.0
 rect_min_size = Vector2( 200, 64 )
 align = 1
 
-[node name="Toolbar" type="Control" parent="Control"]
+[node name="Toolbar" type="Control" parent="Viewport/Spatial/Control"]
 anchor_right = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Control" parent="Control/Toolbar"]
+[node name="Panel" type="Control" parent="Viewport/Spatial/Control/Toolbar"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -320.0
@@ -136,14 +197,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cotation" type="Panel" parent="Control/Toolbar/Panel"]
+[node name="cotation" type="Panel" parent="Viewport/Spatial/Control/Toolbar/Panel"]
 margin_right = 352.0
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ruler" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Ruler" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/cotation"]
 margin_right = 640.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 64, 64 )
@@ -156,7 +217,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Horizontal" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Horizontal" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/cotation"]
 margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 64.0
@@ -172,7 +233,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Vertical" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Vertical" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/cotation"]
 margin_left = 128.0
 margin_right = 768.0
 margin_bottom = 640.0
@@ -185,7 +246,7 @@ texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 19 )
 texture_disabled = ExtResource( 20 )
 
-[node name="Libre" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Libre" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/cotation"]
 margin_left = 192.0
 margin_right = 832.0
 margin_bottom = 640.0
@@ -201,7 +262,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Angle" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Angle" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/cotation"]
 margin_left = 256.0
 margin_right = 896.0
 margin_bottom = 640.0
@@ -217,7 +278,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="zoom" type="Panel" parent="Control/Toolbar/Panel"]
+[node name="zoom" type="Panel" parent="Viewport/Spatial/Control/Toolbar/Panel"]
 margin_left = 352.0
 margin_right = 704.0
 margin_bottom = 64.0
@@ -225,7 +286,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Init" type="TextureButton" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Init" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/zoom"]
 margin_right = 640.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 64, 64 )
@@ -233,7 +294,7 @@ rect_scale = Vector2( 0.1, 0.1 )
 action_mode = 0
 texture_normal = ExtResource( 6 )
 
-[node name="Zoom_Plus" type="Button" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Plus" type="Button" parent="Viewport/Spatial/Control/Toolbar/Panel/zoom"]
 margin_left = 64.5297
 margin_top = 0.529724
 margin_right = 96.5297
@@ -246,7 +307,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSlider" type="HSlider" parent="Control/Toolbar/Panel/zoom"]
+[node name="VSlider" type="HSlider" parent="Viewport/Spatial/Control/Toolbar/Panel/zoom"]
 margin_left = 96.0
 margin_right = 320.0
 margin_bottom = 64.0
@@ -261,7 +322,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Moins" type="Button" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Moins" type="Button" parent="Viewport/Spatial/Control/Toolbar/Panel/zoom"]
 margin_left = 320.0
 margin_right = 352.0
 margin_bottom = 64.0
@@ -273,7 +334,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="X-ray" type="Panel" parent="Control/Toolbar/Panel"]
+[node name="X-ray" type="Panel" parent="Viewport/Spatial/Control/Toolbar/Panel"]
 margin_left = 704.0
 margin_right = 768.0
 margin_bottom = 64.0
@@ -281,7 +342,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Transparence" type="TextureButton" parent="Control/Toolbar/Panel/X-ray"]
+[node name="Transparence" type="TextureButton" parent="Viewport/Spatial/Control/Toolbar/Panel/X-ray"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
@@ -290,7 +351,7 @@ toggle_mode = true
 texture_normal = ExtResource( 25 )
 texture_pressed = ExtResource( 26 )
 
-[node name="Regle" type="Control" parent="Control"]
+[node name="Regle" type="Control" parent="Viewport/Spatial/Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -304,7 +365,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="A" type="TextureButton" parent="Control/Regle"]
+[node name="A" type="TextureButton" parent="Viewport/Spatial/Control/Regle"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 30.0
@@ -317,7 +378,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="B" type="TextureButton" parent="Control/Regle"]
+[node name="B" type="TextureButton" parent="Viewport/Spatial/Control/Regle"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 52.0
@@ -327,7 +388,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 2
 action_mode = 0
 
-[node name="C" type="TextureButton" parent="Control/Regle"]
+[node name="C" type="TextureButton" parent="Viewport/Spatial/Control/Regle"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 52.0
@@ -336,7 +397,7 @@ rect_min_size = Vector2( 32, 32 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 
-[node name="Mesure" type="Label" parent="Control/Regle"]
+[node name="Mesure" type="Label" parent="Viewport/Spatial/Control/Regle"]
 margin_left = -16.0
 margin_top = -19.0
 margin_right = 4.0
@@ -344,8 +405,8 @@ margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 20, 32 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 align = 1
 valign = 1
 autowrap = true
@@ -353,74 +414,74 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Close = SubResource( 4 )
-anims/Deploy = SubResource( 5 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Spatial"]
+anims/Close = SubResource( 6 )
+anims/Deploy = SubResource( 7 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="StaticBody" type="StaticBody" parent="Viewport/Spatial"]
 
-[node name="Object" type="MeshInstance" parent="StaticBody"]
+[node name="Object" type="MeshInstance" parent="Viewport/Spatial/StaticBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-material_override = ExtResource( 27 )
-cast_shadow = 2
+material_override = SubResource( 9 )
+cast_shadow = 0
+mesh = SubResource( 10 )
+material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Viewport/Spatial/StaticBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
-[node name="IG_vertex" type="ImmediateGeometry" parent="StaticBody"]
+[node name="IG_vertex" type="ImmediateGeometry" parent="Viewport/Spatial/StaticBody"]
 visible = false
 
-[node name="CameraGimbal" type="Spatial" parent="."]
+[node name="CameraGimbal" type="Spatial" parent="Viewport/Spatial"]
 script = ExtResource( 2 )
 
-[node name="InnerGimbal" type="Spatial" parent="CameraGimbal"]
+[node name="InnerGimbal" type="Spatial" parent="Viewport/Spatial/CameraGimbal"]
 
-[node name="Camera" type="Camera" parent="CameraGimbal/InnerGimbal"]
+[node name="Camera" type="Camera" parent="Viewport/Spatial/CameraGimbal/InnerGimbal"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
 projection = 1
 current = true
 size = 0.1
 near = 0.01
 
-[node name="RayCast" type="RayCast" parent="CameraGimbal/InnerGimbal/Camera"]
+[node name="RayCast" type="RayCast" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="CameraGimbal/InnerGimbal/Camera"]
-transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0 )
-shadow_contact = 3.09
+[node name="SpotLight" type="SpotLight" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
+spot_range = 1.46403
 
-[node name="Tween" type="Tween" parent="CameraGimbal"]
+[node name="Tween" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
 
-[node name="Tween_zoom" type="Tween" parent="CameraGimbal"]
+[node name="Tween_zoom" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
 
-[node name="Timer" type="Timer" parent="CameraGimbal"]
+[node name="Timer" type="Timer" parent="Viewport/Spatial/CameraGimbal"]
 wait_time = 0.2
 one_shot = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 6 )
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/Spatial"]
+environment = SubResource( 11 )
 
-[node name="IG" type="ImmediateGeometry" parent="."]
+[node name="IG" type="ImmediateGeometry" parent="Viewport/Spatial"]
 visible = false
 material_override = ExtResource( 28 )
 cast_shadow = 0
-
-[connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="." method="_on_MenuButton_obj_selected"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Vertical" to="Control/Regle" method="_on_Vertical_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Libre" to="Control/Regle" method="_on_Libre_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Angle" to="Control/Regle" method="_on_Angle_toggled"]
-[connection signal="button_down" from="Control/Toolbar/Panel/zoom/Zoom_Init" to="CameraGimbal" method="_on_Zoom_Init_button_down"]
-[connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Plus" to="CameraGimbal" method="_on_Zoom_Plus_pressed"]
-[connection signal="value_changed" from="Control/Toolbar/Panel/zoom/VSlider" to="CameraGimbal" method="_on_VSlider_value_changed"]
-[connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Moins" to="CameraGimbal" method="_on_Zoom_Moins_pressed"]
-[connection signal="toggled" from="Control/Toolbar/Panel/X-ray/Transparence" to="Control" method="_on_Transparence_toggled"]
-[connection signal="button_down" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_down"]
-[connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
-[connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]
-[connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
-[connection signal="button_down" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_down"]
-[connection signal="button_up" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_up"]
-[connection signal="zoom_value" from="CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
+[connection signal="obj_selected" from="Viewport/Spatial/Control/ScrollContainer/MenuButton" to="Viewport/Spatial" method="_on_MenuButton_obj_selected"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/cotation/Ruler" to="Viewport/Spatial/Control" method="_on_Ruler_toggled"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/cotation/Horizontal" to="Viewport/Spatial/Control/Regle" method="_on_Horizontal_toggled"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/cotation/Vertical" to="Viewport/Spatial/Control/Regle" method="_on_Vertical_toggled"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/cotation/Libre" to="Viewport/Spatial/Control/Regle" method="_on_Libre_toggled"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/cotation/Angle" to="Viewport/Spatial/Control/Regle" method="_on_Angle_toggled"]
+[connection signal="button_down" from="Viewport/Spatial/Control/Toolbar/Panel/zoom/Zoom_Init" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Init_button_down"]
+[connection signal="pressed" from="Viewport/Spatial/Control/Toolbar/Panel/zoom/Zoom_Plus" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Plus_pressed"]
+[connection signal="value_changed" from="Viewport/Spatial/Control/Toolbar/Panel/zoom/VSlider" to="Viewport/Spatial/CameraGimbal" method="_on_VSlider_value_changed"]
+[connection signal="pressed" from="Viewport/Spatial/Control/Toolbar/Panel/zoom/Zoom_Moins" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Moins_pressed"]
+[connection signal="toggled" from="Viewport/Spatial/Control/Toolbar/Panel/X-ray/Transparence" to="Viewport/Spatial/Control" method="_on_Transparence_toggled"]
+[connection signal="button_down" from="Viewport/Spatial/Control/Regle/A" to="Viewport/Spatial/Control/Regle" method="_on_A_button_down"]
+[connection signal="button_up" from="Viewport/Spatial/Control/Regle/A" to="Viewport/Spatial/Control/Regle" method="_on_A_button_up"]
+[connection signal="button_down" from="Viewport/Spatial/Control/Regle/B" to="Viewport/Spatial/Control/Regle" method="_on_B_button_down"]
+[connection signal="button_up" from="Viewport/Spatial/Control/Regle/B" to="Viewport/Spatial/Control/Regle" method="_on_B_button_up"]
+[connection signal="button_down" from="Viewport/Spatial/Control/Regle/C" to="Viewport/Spatial/Control/Regle" method="_on_C_button_down"]
+[connection signal="button_up" from="Viewport/Spatial/Control/Regle/C" to="Viewport/Spatial/Control/Regle" method="_on_C_button_up"]
+[connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Viewport/Spatial/Control" method="_on_CameraGimbal_zoom_value"]

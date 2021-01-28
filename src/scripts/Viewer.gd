@@ -23,7 +23,8 @@ func _ready():
 
 
 func _init():
-	VisualServer.set_debug_generate_wireframes(true)
+	#VisualServer.set_debug_generate_wireframes(true)
+	pass
 
 
 
@@ -54,41 +55,41 @@ func _on_MenuButton_obj_selected(obj_name):
 	var sm = SpatialMaterial.new()
 	sm.flags_unshaded = true
 	sm.vertex_color_use_as_albedo = true
-	
+
 	ig.clear()
 	ig.begin(Mesh.PRIMITIVE_LINES)
 	ig.material_override = sm
-	
+
 
 	var verticies = piece.get_faces()
 	var triangle = [0, 0, 0]
-	
+
 	var i = 0
-	
-	
-	
-		
+
+
+
+
 	while i < verticies.size()/3:
-		
-		
+
+
 #	
 		var a = verticies[i*3].distance_to(verticies[i*3+1])
 		var b = verticies[i*3+1].distance_to(verticies[i*3+2])
 		var c = verticies[i*3+2].distance_to(verticies[i*3])
 		ig.set_color(Color.black)
-		
-		
-		
+
+
+
 		triangle[0]=a
 		triangle[1]=b
 		triangle[2]=c
 		var pytha = triangle.duplicate()
 		pytha.sort()
-		
-		
+
+
 		if is_equal_approx(pow(pytha[2],2),(pow(pytha[1],2) + pow(pytha[0],2))) :
 			var n = triangle.find(pytha[2])
-			
+
 			if n == 0 :
 				# affiche B
 				ig.add_vertex(verticies[i*3+1])
@@ -120,7 +121,7 @@ func _on_MenuButton_obj_selected(obj_name):
 			# affiche C
 			ig.add_vertex(verticies[i*3+2])
 			ig.add_vertex(verticies[i*3]) 
-		
+
 		i += 1
 	ig.end()
 	var sf = 2.0000011
