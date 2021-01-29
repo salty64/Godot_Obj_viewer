@@ -2,20 +2,10 @@ extends Spatial
 
 const ObjParser = preload("res://addons/obj_parser/obj_parser.gd")
 
-const dirPath = "../objects/"
-
 func resetShape():
 	$StaticBody/CollisionShape.shape = $StaticBody/Object.mesh.create_trimesh_shape() 
 
 func _ready():
-	var dir = Directory.new()
-	
-	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
-		$"../../Control/ScrollContainer/MenuButton".list_files_in_directory(dir)
-	
-	else:
-		print("Failed to open directory : " + dirPath)
-	
 	if $StaticBody/CollisionShape.shape :
 		resetShape()
 	
@@ -26,13 +16,8 @@ func _init():
 	#VisualServer.set_debug_generate_wireframes(true)
 	pass
 
-
-
-
-func _on_MenuButton_obj_selected(obj_name):
-	var path = dirPath + obj_name
-	
-	$StaticBody/Object.mesh = ObjParser.parse_obj(path)
+func _on_MenuButton_obj_selected(obj_path):
+	$StaticBody/Object.mesh = ObjParser.parse_obj(obj_path)
 	
 	resetShape()
 
@@ -127,4 +112,26 @@ func _on_MenuButton_obj_selected(obj_name):
 	var sf = 2.0000011
 	ig.set_scale(Vector3(sf, sf, sf))
 
+func _on_Transparence_toggled(button_pressed):
+	var vp = get_parent()
+	var ig = $StaticBody/IG_vertex
+	
+	if button_pressed :
+		vp.debug_draw = 2
+		ig.show()
+		
+	else :
+		vp.debug_draw = 0
+		ig.hide()
 
+#	var mat = $"../StaticBody/Object".get_active_material(0)
+#	var color = Color(mat.albedo_color)
+#
+#	if button_pressed:
+#		mat.flags_transparent = true
+#		mat.albedo_color.a= 0.5
+#	else:
+#		mat.flags_transparent = false
+#		mat.albedo_color.a = 1
+#	$"../StaticBody/Object".set_surface_material(0, mat)
+	pass # Replace with function body.

@@ -1,13 +1,14 @@
 extends Control
 
+var point_a := false
+var point_b := false
+var point_c := false
 
-var a := false
-var b := false
-var c := false
-var h := false
-var v := false
-var o := false
-var l := false
+var horizontal := true
+var vertical := false
+var angle := false
+var free := false
+
 var cursor_pos
 
 var pool:PoolVector2Array
@@ -18,7 +19,7 @@ var Color_jaune = "#DBAF1F"
 var Color_bleu = "#1F78DB"
 var Color_violet = "#F323F9"
 
-var Color_cotation 
+var Color_cotation = Color_rouge
 
 var valeur_mesure
 
@@ -47,7 +48,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if visible :
-		if h or v or l:
+		if horizontal or vertical or free:
 			c1 = camera.project_ray_origin(pool[0])
 			c2 = camera.project_ray_origin(pool[1])
 			
@@ -60,62 +61,62 @@ func _process(_delta):
 
 		cursor_pos = get_viewport().get_mouse_position() - rect_global_position
 
-		if h or v or l :
+		if horizontal or vertical or free :
 			valeur_mesure = stepify((500 * c1.distance_to(c2)),0.1)
 			print (valeur_mesure)
 			middle_point = pool[0] - (pool[0]-pool[1])/2
 		else :
 			middle_point = Vector2((pool[0].x+pool[1].x+pool[2].x)/3,(pool[0].y+pool[1].y+ pool[2].y)/3)
 
-		if h :
+		if horizontal :
 
-			if a :
+			if point_a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
 				pool[1].y = pool[0].y
 				B.rect_position.y = A.rect_position.y
 				update()
-			if b :
+			if point_b :
 				pool[1]= cursor_pos
 				B.rect_position = pool[1] - B.rect_size/2
 				pool[0].y = pool[1].y
 				A.rect_position.y = B.rect_position.y
 				update()
-		elif v :
+		elif vertical :
 
-			if a :
+			if point_a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
 				pool[1].x = pool[0].x
 				B.rect_position.x = A.rect_position.x
 				update()
-			if b :
+			if point_b :
 				pool[1]= cursor_pos
 				B.rect_position = pool[1] - B.rect_size/2
 				pool[0].x = pool[1].x
 				A.rect_position.x = B.rect_position.x
 				update()
-		elif l:
+		elif free:
 			
-			if a :
+			if point_a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
 				update()
-			if b :
+			if point_b :
 				pool[1]= cursor_pos
 				B.rect_position = pool[1] - B.rect_size/2
 				update()
-		elif o :
+		elif angle :
 			
-			if a :
+			if point_a :
 				pool[0]= cursor_pos
 				A.rect_position = pool[0] - A.rect_size/2
 				update()
-			if b :
+			if point_b :
 				pool[1]= cursor_pos
 				B.rect_position = pool[1] - B.rect_size/2
 				update()
-			if c :
+			if point_c :
 				pool[2]= cursor_pos
 				C.rect_position = pool[2] - C.rect_size/2
 				update()
@@ -133,46 +134,51 @@ func _process(_delta):
 
 
 func _on_A_button_down():
-	a = true
+	point_a = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_A_button_up():
-	a = false
+	point_a = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_B_button_down():
-	b = true
+	point_b = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_B_button_up():
-	b = false
+	point_b = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func _on_C_button_down():
-	c = true
+	point_c = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_C_button_up():
-	c = false
+	point_c = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 
 func _on_Horizontal_toggled(button_pressed):
-	h = button_pressed
-	if h :
-		pool[0]=(Vector2(-100,0))
-		pool[1]=(Vector2(100,0))
+	horizontal = button_pressed
+	
+	if horizontal:
+		pool[0] = Vector2(-100,0)
+		pool[1] = Vector2(100,0)
 		
 		A.rect_position = pool[0] - A.rect_size/2
+		
 		B.rect_position = pool[1] - B.rect_size/2
-		C.visible =!button_pressed
-		Color_cotation=Color_rouge
+		
+		C.visible = !button_pressed
+		
+		Color_cotation = Color_rouge
+		
 		update()
 
 func _on_Vertical_toggled(button_pressed):
-	v = button_pressed
-	if v:
+	vertical = button_pressed
+	if vertical:
 		pool[0]=(Vector2(0,-100))
 		pool[1]=(Vector2(0,100))
 		
@@ -183,8 +189,8 @@ func _on_Vertical_toggled(button_pressed):
 		update()
 
 func _on_Libre_toggled(button_pressed):
-	l = button_pressed
-	if l:
+	free = button_pressed
+	if free:
 		pool[0]=(Vector2(-100,100))
 		pool[1]=(Vector2(+100,-100))
 		
@@ -195,37 +201,43 @@ func _on_Libre_toggled(button_pressed):
 		update()
 
 func _on_Angle_toggled(button_pressed):
+	angle = button_pressed
 	
-	o = button_pressed
-	if o:
-		C.visible =button_pressed
-		pool[0]=(Vector2(80,-100))
-		pool[1]=(Vector2(0,0))
-		if pool.size() != 3 :
-			pool.append(Vector2(100,80))
+	if angle:
+		C.visible = button_pressed
+		
+		pool[0] = Vector2(80,-100)
+		pool[1] = Vector2(0,0)
+		pool[2] = Vector2(100,80)
 
 		A.rect_position = pool[0] - A.rect_size/2
 		B.rect_position = pool[1] - B.rect_size/2
 		C.rect_position = pool[2] - C.rect_size/2
-		Color_cotation=Color_bleu
+		
+		Color_cotation = Color_bleu
+		
 		update()
 		
 func _draw():
-	draw_arc(pool[0], 15, 0, 2*PI, 16,Color_cotation,2,true)
-	draw_arc(pool[1], 15, 0, 2*PI, 16,Color_cotation,2,true)
-	if !o:
-		if pool.size() == 3 :
-			pool.remove(2)
-	else :
-		draw_arc(pool[2], 15, 0, 2*PI, 16,Color_cotation,2,true)
-		var v1 = (pool[0]-pool[1]).normalized()
-		var v2 = (pool[2]-pool[1]).normalized()
-		var angle_depart = Vector2(1,0).angle_to(v1)
-		var angle_arrive = Vector2(1,0).angle_to(v2)
-		draw_arc(pool[1], 30, angle_depart,angle_arrive , 16,Color_cotation,2,true)
-
+	draw_arc(pool[0], 15, 0, 2*PI, 16, Color_cotation, 2, true)
+	draw_arc(pool[1], 15, 0, 2*PI, 16, Color_cotation, 2, true)
 	
-	draw_polyline ( pool, Color_cotation,2,true)
+	var v1 = (pool[0]-pool[1]).normalized()
+	
+	var v2 = (pool[2]-pool[1]).normalized()
+	
+	if angle:
+		draw_arc(pool[2], 15, 0, 2*PI, 16, Color_cotation, 2, true)
+		
+		var angle_depart = Vector2(1,0).angle_to(v1)
+	
+		var angle_arrive = Vector2(1,0).angle_to(v2)
+	
+		draw_arc(pool[1], 30, angle_depart, angle_arrive, 16, Color_cotation, 2, true)
+
+		draw_polyline (pool, Color_cotation, 2, true)
+	else:
+		draw_line(pool[0], pool[1], Color_cotation, 2, true)
 
 	
 	
