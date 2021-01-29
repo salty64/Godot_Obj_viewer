@@ -63,7 +63,7 @@ func _process(_delta):
 
 		if horizontal or vertical or free :
 			valeur_mesure = stepify((500 * c1.distance_to(c2)),0.1)
-			print (valeur_mesure)
+			
 			middle_point = pool[0] - (pool[0]-pool[1])/2
 		else :
 			middle_point = Vector2((pool[0].x+pool[1].x+pool[2].x)/3,(pool[0].y+pool[1].y+ pool[2].y)/3)

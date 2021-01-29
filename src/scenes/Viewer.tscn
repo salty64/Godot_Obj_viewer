@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
@@ -28,6 +28,9 @@
 [ext_resource path="res://assets/cube_pressed.svg" type="Texture" id=26]
 [ext_resource path="res://scripts/Toolbar.gd" type="Script" id=27]
 [ext_resource path="res://assets/red.tres" type="Material" id=28]
+[ext_resource path="res://scripts/Overlay.gd" type="Script" id=29]
+[ext_resource path="res://assets/help_screen.svg" type="Texture" id=30]
+[ext_resource path="res://assets/help_button.svg" type="Texture" id=31]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -46,7 +49,7 @@ void fragment() {
     col += texture(TEXTURE, UV + vec2(SCREEN_PIXEL_SIZE.x, -SCREEN_PIXEL_SIZE.y)).xyz;
 	
 	if (length(col) > 0.01){
-		COLOR.xyz = vec3(0.8, 0.8, 0.8);
+		COLOR.xyz = vec3(0.7, 0.7, 0.7);
 	}else{
 		COLOR.xyz = col0;
 	}
@@ -55,7 +58,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -70,19 +73,19 @@ tracks/0/keys = {
 "values": [ Vector2( 768, 0 ), Vector2( 510, 0 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=5]
 font_path = "res://themes/fonts/FiraSans-Bold.ttf"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 outline_size = 1
 outline_color = Color( 0.215686, 0.215686, 0.219608, 1 )
-font_data = SubResource( 4 )
+font_data = SubResource( 5 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=7]
 code = "shader_type spatial;
 
 const float near = 0.1; 
@@ -98,18 +101,18 @@ void fragment(){
 	
 	float len = length(cross(vec3(depth), NORMAL));
 	
-	ALBEDO = vec3(0.66, 0.6, 0.17*len);
+	ALBEDO = vec3(0.7, 0.7, 0.7)*len*500.0;
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
 
-[sub_resource type="CubeMesh" id=10]
+[sub_resource type="CubeMesh" id=9]
 size = Vector3( 0.1, 0.1, 0.1 )
 
-[sub_resource type="Environment" id=11]
+[sub_resource type="Environment" id=10]
 background_mode = 1
-background_color = Color( 0.45098, 0.490196, 0.501961, 1 )
+background_color = Color( 0.133333, 0.32549, 0.701961, 1 )
 
 [node name="ViewportContainer" type="ViewportContainer"]
 material = SubResource( 2 )
@@ -143,8 +146,9 @@ __meta__ = {
 }
 
 [node name="MenuButton" parent="Control/ScrollContainer" instance=ExtResource( 1 )]
-margin_bottom = 64.0
+margin_right = 200.0
 rect_min_size = Vector2( 200, 64 )
+rect_scale = Vector2( 1, 1 )
 align = 1
 
 [node name="Toolbar" type="Control" parent="Control"]
@@ -241,7 +245,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Toolbar/cotation"]
-anims/Deploy = SubResource( 7 )
+anims/Deploy = SubResource( 3 )
 
 [node name="zoom" type="Panel" parent="Control/Toolbar"]
 margin_left = 832.0
@@ -285,6 +289,8 @@ min_value = 0.1
 max_value = 0.8
 step = 0.001
 value = 0.1
+editable = false
+scrollable = false
 ticks_on_borders = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -318,6 +324,21 @@ rect_scale = Vector2( 0.1, 0.1 )
 toggle_mode = true
 texture_normal = ExtResource( 25 )
 texture_pressed = ExtResource( 26 )
+
+[node name="Help" type="Panel" parent="Control/Toolbar"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 64.0
+
+[node name="TextureButton" type="TextureButton" parent="Control/Toolbar/Help"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_scale = Vector2( 0.1, 0.1 )
+texture_normal = ExtResource( 31 )
 
 [node name="Regle" type="Control" parent="Control"]
 anchor_left = 0.5
@@ -373,14 +394,48 @@ margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 20, 32 )
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 align = 1
 valign = 1
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Overlay" type="Control" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 29 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.12244
+margin_right = 1558.88
+margin_bottom = 859.0
+color = Color( 0.133333, 0.32549, 0.701961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_ok" type="Button" parent="Control/Overlay"]
+margin_left = 721.0
+margin_top = 804.0
+margin_right = 801.0
+margin_bottom = 894.0
+flat = true
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1600, 900 )
@@ -394,9 +449,9 @@ script = ExtResource( 3 )
 
 [node name="Object" type="MeshInstance" parent="Viewport/Spatial/StaticBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-material_override = SubResource( 9 )
+material_override = SubResource( 8 )
 cast_shadow = 0
-mesh = SubResource( 10 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Viewport/Spatial/StaticBody"]
@@ -433,35 +488,12 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/Spatial"]
-environment = SubResource( 11 )
+environment = SubResource( 10 )
 
 [node name="IG" type="ImmediateGeometry" parent="Viewport/Spatial"]
 visible = false
 material_override = ExtResource( 28 )
 cast_shadow = 0
-
-[node name="Overlay" type="Control" parent="."]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="Overlay"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 1560.0
-margin_bottom = 859.0
-color = Color( 0.539063, 0.4422, 0.4422, 0.5 )
-
-[node name="TextureButton" type="Button" parent="Overlay"]
-margin_left = 727.355
-margin_top = 789.091
-margin_right = 867.355
-margin_bottom = 866.091
-theme = ExtResource( 5 )
-text = "OK"
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="Viewport/Spatial" method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/cotation/Ruler" to="Control/Toolbar" method="_on_Ruler_toggled"]
@@ -474,10 +506,12 @@ text = "OK"
 [connection signal="value_changed" from="Control/Toolbar/zoom/VSlider" to="Viewport/Spatial/CameraGimbal" method="_on_VSlider_value_changed"]
 [connection signal="pressed" from="Control/Toolbar/zoom/Zoom_Moins" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Moins_pressed"]
 [connection signal="toggled" from="Control/Toolbar/X-ray/Transparence" to="Viewport/Spatial" method="_on_Transparence_toggled"]
+[connection signal="pressed" from="Control/Toolbar/Help/TextureButton" to="Control/Toolbar" method="_on_TextureButton_pressed"]
 [connection signal="button_down" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_down"]
 [connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
 [connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]
 [connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
 [connection signal="button_down" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_down"]
 [connection signal="button_up" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_up"]
+[connection signal="pressed" from="Control/Overlay/Button_ok" to="Control/Overlay" method="_on_Button_ok_pressed"]
 [connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Control/Toolbar" method="_on_CameraGimbal_zoom_value"]
