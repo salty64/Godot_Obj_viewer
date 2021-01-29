@@ -154,16 +154,16 @@ func _process(_delta):
 		tween.start()
 
 	if Input.is_action_pressed("ui_left"):
-		self.rotation.y = self.rotation.y + deg2rad(5)
+		self.rotation.y = self.rotation.y + deg2rad(1)
 
 	if Input.is_action_pressed("ui_right"):
-		self.rotation.y = self.rotation.y - deg2rad(5)
+		self.rotation.y = self.rotation.y - deg2rad(1)
 
 	if Input.is_action_pressed("ui_up"):
-		innerGimbal.rotation.x = innerGimbal.rotation.x + deg2rad(5)
+		innerGimbal.rotation.x = innerGimbal.rotation.x + deg2rad(1)
 
 	if Input.is_action_pressed("ui_down"):
-		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(5)
+		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(1)
 
 func _on_Zoom_Moins_pressed():
 	add_zoom(zoom_speed)

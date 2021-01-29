@@ -4,7 +4,7 @@ extends Control
 
 func _ready():
 	$Regle.visible = false
-	$"../AnimationPlayer".play("Close")
+	$"../Viewport/Spatial/AnimationPlayer".play("Close")
 	pass 
 
 
@@ -16,9 +16,9 @@ func _on_CameraGimbal_zoom_value(value):
 func _on_Ruler_toggled(button_pressed):
 	
 	if button_pressed :
-		$"../AnimationPlayer".play("Deploy")
+		$"../Viewport/Spatial/AnimationPlayer".play("Deploy")
 	else :
-		$"../AnimationPlayer".play_backwards("Deploy")
+		$"../Viewport/Spatial/AnimationPlayer".play_backwards("Deploy")
 
 	$Toolbar/Panel/cotation/Vertical.disabled=!button_pressed
 	$Toolbar/Panel/cotation/Libre.disabled=!button_pressed
@@ -32,11 +32,11 @@ func _on_Transparence_toggled(button_pressed):
 	var vp = get_viewport()
 	if button_pressed :
 		vp.debug_draw = 2
-		$"../StaticBody/IG_vertex".show()
+		$"../Viewport/Spatial/StaticBody/IG_vertex".show()
 		
 	else :
 		vp.debug_draw = 0
-		$"../StaticBody/IG_vertex".hide()
+		$"../Viewport/Spatial/StaticBody/IG_vertex".hide()
 
 #	var mat = $"../StaticBody/Object".get_active_material(0)
 #	var color = Color(mat.albedo_color)

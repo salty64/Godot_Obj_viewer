@@ -11,8 +11,8 @@ func _ready():
 	var dir = Directory.new()
 	
 	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
-		$Control/ScrollContainer/MenuButton.list_files_in_directory(dir)
-		
+		$"../../Control/ScrollContainer/MenuButton".list_files_in_directory(dir)
+	
 	else:
 		print("Failed to open directory : " + dirPath)
 	
