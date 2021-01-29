@@ -26,6 +26,7 @@
 [ext_resource path="res://assets/libre_disabled.svg" type="Texture" id=24]
 [ext_resource path="res://assets/cube.svg" type="Texture" id=25]
 [ext_resource path="res://assets/cube_pressed.svg" type="Texture" id=26]
+[ext_resource path="res://scripts/Toolbar.gd" type="Script" id=27]
 [ext_resource path="res://assets/red.tres" type="Material" id=28]
 
 [sub_resource type="Shader" id=1]
@@ -54,6 +55,21 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
+[sub_resource type="Animation" id=7]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 768, 0 ), Vector2( 510, 0 ) ]
+}
+
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
 
@@ -65,47 +81,6 @@ size = 32
 outline_size = 1
 outline_color = Color( 0.215686, 0.215686, 0.219608, 1 )
 font_data = SubResource( 4 )
-
-[sub_resource type="Animation" id=6]
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Control/Toolbar/Panel/cotation:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 288, 0 ) ]
-}
-
-[sub_resource type="Animation" id=7]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("../../Control/Toolbar/Panel/cotation/Horizontal:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.5 ),
-"transitions": PoolRealArray( 1, 2.92817, 1 ),
-"update": 1,
-"values": [ false, true, true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../../Control/Toolbar/Panel/cotation:rect_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 288, 0 ), Vector2( 0, 0 ) ]
-}
 
 [sub_resource type="Shader" id=8]
 code = "shader_type spatial;
@@ -173,30 +148,24 @@ rect_min_size = Vector2( 200, 64 )
 align = 1
 
 [node name="Toolbar" type="Control" parent="Control"]
-anchor_right = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Control" parent="Control/Toolbar"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -320.0
-margin_right = 448.0
-margin_bottom = 64.0
-theme = ExtResource( 5 )
+margin_left = -800.0
+margin_right = 800.0
+script = ExtResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="cotation" type="Panel" parent="Control/Toolbar/Panel"]
-margin_right = 352.0
+[node name="cotation" type="Panel" parent="Control/Toolbar"]
+margin_left = 768.0
+margin_right = 1120.0
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Ruler" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Ruler" type="TextureButton" parent="Control/Toolbar/cotation"]
 margin_right = 640.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 64, 64 )
@@ -209,13 +178,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Horizontal" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Horizontal" type="TextureButton" parent="Control/Toolbar/cotation"]
 margin_left = 64.0
 margin_right = 128.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 disabled = true
 toggle_mode = true
+pressed = true
 group = ExtResource( 21 )
 texture_normal = ExtResource( 10 )
 texture_pressed = ExtResource( 17 )
@@ -225,7 +195,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Vertical" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Vertical" type="TextureButton" parent="Control/Toolbar/cotation"]
 margin_left = 128.0
 margin_right = 768.0
 margin_bottom = 640.0
@@ -238,7 +208,7 @@ texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 19 )
 texture_disabled = ExtResource( 20 )
 
-[node name="Libre" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Libre" type="TextureButton" parent="Control/Toolbar/cotation"]
 margin_left = 192.0
 margin_right = 832.0
 margin_bottom = 640.0
@@ -254,7 +224,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Angle" type="TextureButton" parent="Control/Toolbar/Panel/cotation"]
+[node name="Angle" type="TextureButton" parent="Control/Toolbar/cotation"]
 margin_left = 256.0
 margin_right = 896.0
 margin_bottom = 640.0
@@ -270,23 +240,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="zoom" type="Panel" parent="Control/Toolbar/Panel"]
-margin_left = 352.0
-margin_right = 704.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Toolbar/cotation"]
+anims/Deploy = SubResource( 7 )
+
+[node name="zoom" type="Panel" parent="Control/Toolbar"]
+margin_left = 832.0
+margin_right = 1184.0
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Init" type="TextureButton" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Init" type="TextureButton" parent="Control/Toolbar/zoom"]
 margin_right = 640.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 64, 64 )
 rect_scale = Vector2( 0.1, 0.1 )
 action_mode = 0
 texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Zoom_Plus" type="Button" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Plus" type="Button" parent="Control/Toolbar/zoom"]
 margin_left = 64.5297
 margin_top = 0.529724
 margin_right = 96.5297
@@ -299,7 +275,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSlider" type="HSlider" parent="Control/Toolbar/Panel/zoom"]
+[node name="VSlider" type="HSlider" parent="Control/Toolbar/zoom"]
 margin_left = 96.0
 margin_right = 320.0
 margin_bottom = 64.0
@@ -314,7 +290,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Zoom_Moins" type="Button" parent="Control/Toolbar/Panel/zoom"]
+[node name="Zoom_Moins" type="Button" parent="Control/Toolbar/zoom"]
 margin_left = 320.0
 margin_right = 352.0
 margin_bottom = 64.0
@@ -326,15 +302,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="X-ray" type="Panel" parent="Control/Toolbar/Panel"]
-margin_left = 704.0
-margin_right = 768.0
+[node name="X-ray" type="Panel" parent="Control/Toolbar"]
+margin_left = 1184.0
+margin_right = 1248.0
 margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Transparence" type="TextureButton" parent="Control/Toolbar/Panel/X-ray"]
+[node name="Transparence" type="TextureButton" parent="Control/Toolbar/X-ray"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
@@ -414,10 +390,6 @@ render_target_update_mode = 3
 [node name="Spatial" type="Spatial" parent="Viewport"]
 script = ExtResource( 3 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Spatial"]
-anims/Close = SubResource( 6 )
-anims/Deploy = SubResource( 7 )
-
 [node name="StaticBody" type="StaticBody" parent="Viewport/Spatial"]
 
 [node name="Object" type="MeshInstance" parent="Viewport/Spatial/StaticBody"]
@@ -492,20 +464,20 @@ theme = ExtResource( 5 )
 text = "OK"
 
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="Viewport/Spatial" method="_on_MenuButton_obj_selected"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Vertical" to="Control/Regle" method="_on_Vertical_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Libre" to="Control/Regle" method="_on_Libre_toggled"]
-[connection signal="toggled" from="Control/Toolbar/Panel/cotation/Angle" to="Control/Regle" method="_on_Angle_toggled"]
-[connection signal="button_down" from="Control/Toolbar/Panel/zoom/Zoom_Init" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Init_button_down"]
-[connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Plus" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Plus_pressed"]
-[connection signal="value_changed" from="Control/Toolbar/Panel/zoom/VSlider" to="Viewport/Spatial/CameraGimbal" method="_on_VSlider_value_changed"]
-[connection signal="pressed" from="Control/Toolbar/Panel/zoom/Zoom_Moins" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Moins_pressed"]
-[connection signal="toggled" from="Control/Toolbar/Panel/X-ray/Transparence" to="Control" method="_on_Transparence_toggled"]
+[connection signal="toggled" from="Control/Toolbar/cotation/Ruler" to="Control/Toolbar" method="_on_Ruler_toggled"]
+[connection signal="toggled" from="Control/Toolbar/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
+[connection signal="toggled" from="Control/Toolbar/cotation/Vertical" to="Control/Regle" method="_on_Vertical_toggled"]
+[connection signal="toggled" from="Control/Toolbar/cotation/Libre" to="Control/Regle" method="_on_Libre_toggled"]
+[connection signal="toggled" from="Control/Toolbar/cotation/Angle" to="Control/Regle" method="_on_Angle_toggled"]
+[connection signal="button_down" from="Control/Toolbar/zoom/Zoom_Init" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Init_button_down"]
+[connection signal="pressed" from="Control/Toolbar/zoom/Zoom_Plus" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Plus_pressed"]
+[connection signal="value_changed" from="Control/Toolbar/zoom/VSlider" to="Viewport/Spatial/CameraGimbal" method="_on_VSlider_value_changed"]
+[connection signal="pressed" from="Control/Toolbar/zoom/Zoom_Moins" to="Viewport/Spatial/CameraGimbal" method="_on_Zoom_Moins_pressed"]
+[connection signal="toggled" from="Control/Toolbar/X-ray/Transparence" to="Viewport/Spatial" method="_on_Transparence_toggled"]
 [connection signal="button_down" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_down"]
 [connection signal="button_up" from="Control/Regle/A" to="Control/Regle" method="_on_A_button_up"]
 [connection signal="button_down" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_down"]
 [connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
 [connection signal="button_down" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_down"]
 [connection signal="button_up" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_up"]
-[connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
+[connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Control/Toolbar" method="_on_CameraGimbal_zoom_value"]

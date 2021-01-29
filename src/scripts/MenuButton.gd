@@ -2,11 +2,15 @@ extends MenuButton
 
 var obj_icon = load("res://assets/menu_cube.svg")
 
+const dirPath = "../objects/"
+
 var menu
 
 signal obj_selected (obj_name)
 
-func list_files_in_directory(dir:Directory):
+var dir = Directory.new()
+
+func list_files_in_directory():
 	menu = self.get_popup()
 	
 	if dir.list_dir_begin(true) == OK:
@@ -25,7 +29,11 @@ func list_files_in_directory(dir:Directory):
 		
 	print("Failed to open stream list")
 
-func _on_item_pressed(id):
-	emit_signal("obj_selected", menu.get_item_text(id))
-	
+func _ready():
+	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
+		list_files_in_directory()
+	else:
+		print("Failed to open directory : " + dirPath)
 
+func _on_item_pressed(id):
+	emit_signal("obj_selected", dirPath + menu.get_item_text(id))
