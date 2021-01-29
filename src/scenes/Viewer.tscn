@@ -468,6 +468,29 @@ visible = false
 material_override = ExtResource( 28 )
 cast_shadow = 0
 
+[node name="Overlay" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1560.0
+margin_bottom = 859.0
+color = Color( 0.539063, 0.4422, 0.4422, 0.5 )
+
+[node name="TextureButton" type="Button" parent="Overlay"]
+margin_left = 727.355
+margin_top = 789.091
+margin_right = 867.355
+margin_bottom = 866.091
+theme = ExtResource( 5 )
+text = "OK"
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="Viewport/Spatial" method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]

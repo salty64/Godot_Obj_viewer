@@ -50,7 +50,7 @@ func _physics_process(_delta):
 		if h or v or l:
 			c1 = camera.project_ray_origin(pool[0])
 			c2 = camera.project_ray_origin(pool[1])
-			
+
 
 func _process(_delta):
 
@@ -224,11 +224,10 @@ func _draw():
 		var angle_arrive = Vector2(1,0).angle_to(v2)
 		draw_arc(pool[1], 30, angle_depart,angle_arrive , 16,Color_cotation,2,true)
 
-	
+
 	draw_polyline ( pool, Color_cotation,2,true)
 
-	
-	
+
 
 
 
