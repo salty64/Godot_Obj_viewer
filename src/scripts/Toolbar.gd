@@ -27,3 +27,7 @@ func _on_Ruler_toggled(button_pressed):
 	
 	$"../Regle".visible = button_pressed
 	
+
+
+func _on_TextureButton_pressed():
+	$"../Overlay".visible=true
