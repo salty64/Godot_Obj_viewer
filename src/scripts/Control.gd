@@ -29,7 +29,7 @@ func _on_Ruler_toggled(button_pressed):
 
 
 func _on_Transparence_toggled(button_pressed):
-	var vp = get_viewport()
+	var vp = $"../Viewport/"
 	if button_pressed :
 		vp.debug_draw = 2
 		$"../Viewport/Spatial/StaticBody/IG_vertex".show()
