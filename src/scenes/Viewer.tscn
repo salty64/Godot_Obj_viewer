@@ -139,8 +139,6 @@ __meta__ = {
 margin_right = 247.0
 margin_bottom = 115.0
 rect_min_size = Vector2( 0, 64 )
-theme = ExtResource( 5 )
-follow_focus = true
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
