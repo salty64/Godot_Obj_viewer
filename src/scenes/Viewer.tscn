@@ -54,6 +54,18 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://themes/fonts/FiraSans-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+outline_size = 1
+outline_color = Color( 0.215686, 0.215686, 0.219608, 1 )
+font_data = SubResource( 4 )
+
 [sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../../Control/Toolbar/Panel/cotation:rect_position")
@@ -124,18 +136,6 @@ size = Vector3( 0.1, 0.1, 0.1 )
 background_mode = 1
 background_color = Color( 0.45098, 0.490196, 0.501961, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.168627, 0.168627, 0.670588, 0 )
-
-[sub_resource type="DynamicFontData" id=4]
-font_path = "res://themes/fonts/FiraSans-Bold.ttf"
-
-[sub_resource type="DynamicFont" id=5]
-size = 32
-outline_size = 1
-outline_color = Color( 0.215686, 0.215686, 0.219608, 1 )
-font_data = SubResource( 4 )
-
 [node name="ViewportContainer" type="ViewportContainer"]
 material = SubResource( 2 )
 anchor_right = 1.0
@@ -145,68 +145,6 @@ stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 1600, 900 )
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="Spatial" type="Spatial" parent="Viewport"]
-script = ExtResource( 3 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Spatial"]
-anims/Close = SubResource( 6 )
-anims/Deploy = SubResource( 7 )
-
-[node name="StaticBody" type="StaticBody" parent="Viewport/Spatial"]
-
-[node name="Object" type="MeshInstance" parent="Viewport/Spatial/StaticBody"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-material_override = SubResource( 9 )
-cast_shadow = 0
-mesh = SubResource( 10 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="Viewport/Spatial/StaticBody"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-
-[node name="IG_vertex" type="ImmediateGeometry" parent="Viewport/Spatial/StaticBody"]
-visible = false
-
-[node name="CameraGimbal" type="Spatial" parent="Viewport/Spatial"]
-script = ExtResource( 2 )
-
-[node name="InnerGimbal" type="Spatial" parent="Viewport/Spatial/CameraGimbal"]
-
-[node name="Camera" type="Camera" parent="Viewport/Spatial/CameraGimbal/InnerGimbal"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
-projection = 1
-current = true
-size = 0.1
-near = 0.01
-
-[node name="RayCast" type="RayCast" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
-enabled = true
-cast_to = Vector3( 0, 0, -10 )
-
-[node name="SpotLight" type="SpotLight" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
-spot_range = 1.46403
-
-[node name="Tween" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
-
-[node name="Tween_zoom" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
-
-[node name="Timer" type="Timer" parent="Viewport/Spatial/CameraGimbal"]
-wait_time = 0.2
-one_shot = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/Spatial"]
-environment = SubResource( 11 )
-
-[node name="IG" type="ImmediateGeometry" parent="Viewport/Spatial"]
-visible = false
-material_override = ExtResource( 28 )
-cast_shadow = 0
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -468,7 +406,68 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1600, 900 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Spatial" type="Spatial" parent="Viewport"]
+script = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Spatial"]
+anims/Close = SubResource( 6 )
+anims/Deploy = SubResource( 7 )
+
+[node name="StaticBody" type="StaticBody" parent="Viewport/Spatial"]
+
+[node name="Object" type="MeshInstance" parent="Viewport/Spatial/StaticBody"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+material_override = SubResource( 9 )
+cast_shadow = 0
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Viewport/Spatial/StaticBody"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="IG_vertex" type="ImmediateGeometry" parent="Viewport/Spatial/StaticBody"]
+visible = false
+
+[node name="CameraGimbal" type="Spatial" parent="Viewport/Spatial"]
+script = ExtResource( 2 )
+
+[node name="InnerGimbal" type="Spatial" parent="Viewport/Spatial/CameraGimbal"]
+
+[node name="Camera" type="Camera" parent="Viewport/Spatial/CameraGimbal/InnerGimbal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+projection = 1
+current = true
+size = 0.1
+near = 0.01
+
+[node name="RayCast" type="RayCast" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
+enabled = true
+cast_to = Vector3( 0, 0, -10 )
+
+[node name="SpotLight" type="SpotLight" parent="Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"]
+spot_range = 1.46403
+
+[node name="Tween" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
+
+[node name="Tween_zoom" type="Tween" parent="Viewport/Spatial/CameraGimbal"]
+
+[node name="Timer" type="Timer" parent="Viewport/Spatial/CameraGimbal"]
+wait_time = 0.2
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Viewport/Spatial"]
+environment = SubResource( 11 )
+
+[node name="IG" type="ImmediateGeometry" parent="Viewport/Spatial"]
+visible = false
+material_override = ExtResource( 28 )
+cast_shadow = 0
+
 [connection signal="obj_selected" from="Control/ScrollContainer/MenuButton" to="Viewport/Spatial" method="_on_MenuButton_obj_selected"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Ruler" to="Control" method="_on_Ruler_toggled"]
 [connection signal="toggled" from="Control/Toolbar/Panel/cotation/Horizontal" to="Control/Regle" method="_on_Horizontal_toggled"]
@@ -486,3 +485,4 @@ __meta__ = {
 [connection signal="button_up" from="Control/Regle/B" to="Control/Regle" method="_on_B_button_up"]
 [connection signal="button_down" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_down"]
 [connection signal="button_up" from="Control/Regle/C" to="Control/Regle" method="_on_C_button_up"]
+[connection signal="zoom_value" from="Viewport/Spatial/CameraGimbal" to="Control" method="_on_CameraGimbal_zoom_value"]
