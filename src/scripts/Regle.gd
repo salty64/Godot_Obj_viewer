@@ -27,7 +27,7 @@ onready var B = $B
 onready var C = $C
 
 onready var Mesure = $Mesure
-onready var camera = $"../../CameraGimbal/InnerGimbal/Camera"
+onready var camera = $"../../Viewport/Spatial/CameraGimbal/InnerGimbal/Camera"
 var c1 
 var c2
 
