@@ -51,7 +51,7 @@ func _physics_process(_delta):
 		if horizontal or vertical or free:
 			c1 = camera.project_ray_origin(pool[0])
 			c2 = camera.project_ray_origin(pool[1])
-			
+
 
 func _process(_delta):
 
@@ -238,12 +238,3 @@ func _draw():
 		draw_polyline (pool, Color_cotation, 2, true)
 	else:
 		draw_line(pool[0], pool[1], Color_cotation, 2, true)
-
-	
-	
-
-
-
-
-
-
