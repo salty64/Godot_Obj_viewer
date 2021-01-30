@@ -84,8 +84,20 @@ func _unhandled_input(event):
 	
 func _physics_process(_delta):
 	if !tween.is_active() and !timer.is_stopped() and Input.is_action_just_released("mouse_right"):
-		var position2D = get_viewport().get_mouse_position()
+		
+		var blueprint_size = $"/root".size
+		var correction = Vector2((OS.get_window_size().x-blueprint_size.x)/2.0,(OS.get_window_size().y-blueprint_size.y)/2.0)
+#		
 
+		var ratio =Vector2(1600.0,900.0)/blueprint_size
+
+
+		
+		var position2D = (get_viewport().get_mouse_position()-correction)*ratio
+		
+		
+		
+		
 		position3D = camera.project_ray_origin(position2D)
 
 		position3D = camera.to_local(position3D)
@@ -95,20 +107,18 @@ func _physics_process(_delta):
 		
 		if raycast.is_colliding():
 			var normale = raycast.get_collision_normal()
-			
-#			printt(raycast.transform.basis.z, normale)
 
 			var dir = camera.global_transform.basis.z
-			
+	
 			var col_point = raycast.get_collision_point()
-
+			
 			ig.clear()
 			ig.begin(Mesh.PRIMITIVE_LINES)
-			draw_line(Vector3.ZERO,dir*0.25,Color.red)
-			draw_line(Vector3.ZERO,normale*0.25,Color.violet)
+#			draw_line(Vector3.ZERO,dir*0.25,Color.red)
+#			draw_line(Vector3.ZERO,normale*0.25,Color.violet)
 			draw_line(col_point, col_point+normale*0.25, Color.blue)
 			ig.end()
-	
+
 			var normal_x = Vector2(normale.x, normale.z)
 
 			var normal_y = Vector2(normal_x.length(), normale.y)
