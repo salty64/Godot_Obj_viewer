@@ -30,9 +30,9 @@ func _on_MenuButton_obj_selected(obj_path):
 	var piece = $StaticBody/Object.mesh
 	var mdt = MeshDataTool.new()
 	mdt.create_from_surface($StaticBody/Object.mesh, 0)
-	var nb_faces = mdt.get_face_count()
-	var nb_edges = mdt.get_edge_count()
-	var nb_vertex = mdt.get_vertex_count()
+#	var nb_faces = mdt.get_face_count()
+#	var nb_edges = mdt.get_edge_count()
+#	var nb_vertex = mdt.get_vertex_count()
 	
 
 	
