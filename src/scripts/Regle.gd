@@ -21,6 +21,9 @@ var Color_violet = "#F323F9"
 
 var Color_cotation = Color_rouge
 
+var cross_width=0.5
+var cross_color = "#585150 "
+
 var valeur_mesure
 
 onready var A = $A
@@ -219,6 +222,7 @@ func _on_Angle_toggled(button_pressed):
 		update()
 		
 func _draw():
+	
 	draw_arc(pool[0], 15, 0, 2*PI, 16, Color_cotation, 2, true)
 	draw_arc(pool[1], 15, 0, 2*PI, 16, Color_cotation, 2, true)
 	
@@ -236,5 +240,19 @@ func _draw():
 		draw_arc(pool[1], 30, angle_depart, angle_arrive, 16, Color_cotation, 2, true)
 
 		draw_polyline (pool, Color_cotation, 2, true)
+		draw_line(pool[2]+Vector2(0,30), pool[2]+Vector2(0,5), cross_color, 1, true)
+		draw_line(pool[2]+Vector2(0,-30), pool[2]+Vector2(0,-5), cross_color, 1, true)
+		draw_line(pool[2]+Vector2(30,0), pool[2]+Vector2(5,0), cross_color, 1, true)
+		draw_line(pool[2]+Vector2(-30,0), pool[2]+Vector2(-5,0), cross_color, 1, true)
 	else:
 		draw_line(pool[0], pool[1], Color_cotation, 2, true)
+	
+	draw_line(pool[0]+Vector2(0,30), pool[0]+Vector2(0,5), cross_color, 1, true)
+	draw_line(pool[0]+Vector2(0,-30), pool[0]+Vector2(0,-5), cross_color, 1, true)
+	draw_line(pool[0]+Vector2(30,0), pool[0]+Vector2(5,0), cross_color, 1, true)
+	draw_line(pool[0]+Vector2(-30,0), pool[0]+Vector2(-5,0), cross_color, 1, true)
+	
+	draw_line(pool[1]+Vector2(0,30), pool[1]+Vector2(0,5), cross_color, 1, true)
+	draw_line(pool[1]+Vector2(0,-30), pool[1]+Vector2(0,-5), cross_color, 1, true)
+	draw_line(pool[1]+Vector2(30,0), pool[1]+Vector2(5,0), cross_color, 1, true)
+	draw_line(pool[1]+Vector2(-30,0), pool[1]+Vector2(-5,0), cross_color, 1, true)
