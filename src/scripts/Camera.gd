@@ -87,8 +87,7 @@ func _physics_process(_delta):
 		
 		var blueprint_size = $"/root".size
 		var correction = Vector2((OS.get_window_size().x-blueprint_size.x)/2.0,(OS.get_window_size().y-blueprint_size.y)/2.0)
-#		printt(OS.get_window_size(),blueprint_size)
-#		printt (correction,get_viewport().get_mouse_position(),get_viewport().get_mouse_position()-correction)
+#		
 
 		var ratio =Vector2(1600.0,900.0)/blueprint_size
 
