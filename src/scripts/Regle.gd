@@ -21,7 +21,7 @@ var Color_violet = "#F323F9"
 
 var Color_cotation = Color_rouge
 
-var cross_color = "#585150 "
+var cross_color = "#202020"
 
 var valeur_mesure
 

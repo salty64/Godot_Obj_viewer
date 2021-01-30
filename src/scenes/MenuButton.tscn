@@ -1,9 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/menu.svg" type="Texture" id=5]
 [ext_resource path="res://scripts/MenuButton.gd" type="Script" id=6]
 
-[sub_resource type="Theme" id=1]
+[sub_resource type="StyleBoxFlat" id=2815]
+
+[sub_resource type="StyleBoxFlat" id=2816]
+bg_color = Color( 0.192157, 0.215686, 0.270588, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2817]
+bg_color = Color( 0.192157, 0.215686, 0.270588, 1 )
+
+[sub_resource type="Theme" id=2818]
+Button/styles/ = SubResource( 2815 )
+MenuButton/styles/ = SubResource( 2816 )
+Panel/colors/ = Color( 0.192157, 0.215686, 0.270588, 1 )
+Panel/styles/ = SubResource( 2817 )
 
 [node name="MenuButton" type="MenuButton"]
 margin_right = 200.0
@@ -11,7 +23,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 rect_scale = Vector2( 0.1, 0.1 )
 rect_clip_content = true
-theme = SubResource( 1 )
+theme = SubResource( 2818 )
 icon = ExtResource( 5 )
 flat = false
 align = 0
