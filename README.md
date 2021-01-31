@@ -3,7 +3,7 @@
 **Dimension taking**
 
 
-![Interface](`https`://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTQ2MDYucG5n/original/vRz94m.png)
+![Interface](https://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTQ2MDYucG5n/original/vRz94m.png)
 
 **[EN]**  
 
