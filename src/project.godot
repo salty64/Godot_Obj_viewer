@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Cao- Dao"
+config/name="ObjectViewer"
 run/main_scene="res://scenes/Viewer.tscn"
 boot_splash/image="res://assets/splash.png"
 config/icon="res://icon.png"
