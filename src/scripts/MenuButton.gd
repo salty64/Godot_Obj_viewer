@@ -2,7 +2,7 @@ extends MenuButton
 
 var obj_icon = load("res://assets/menu_cube.svg")
 
-const dirPath = "../objects/"
+var dirPath = OS.get_executable_path().get_base_dir()+"/objects/"
 
 var menu
 
