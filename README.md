@@ -19,6 +19,6 @@ Mais en cette période particulière de COVID-19, nous avons développé un prog
 # Add-on
 A `.obj` parser utility for Godot. https://github.com/Jummit/godot-obj-parser
 
-# Release
+# Releases
 
 https://saltyn.itch.io/objectviewer
