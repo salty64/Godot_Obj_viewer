@@ -1,23 +1,17 @@
 extends Spatial
 
-const ObjParser = preload("res://addons/obj_parser/obj_parser.gd")
-
 func resetShape():
 	$StaticBody/CollisionShape.shape = $StaticBody/Object.mesh.create_trimesh_shape() 
 
 func _ready():
-#	if $StaticBody/CollisionShape.shape :
 	resetShape()
-	
-	pass
-
 
 func _init():
 	#VisualServer.set_debug_generate_wireframes(true)
 	pass
 
 func _on_MenuButton_obj_selected(obj_path):
-	$StaticBody/Object.mesh = ObjParser.parse_obj(obj_path)
+	$StaticBody/Object.mesh = load(obj_path)
 	
 	resetShape()
 
