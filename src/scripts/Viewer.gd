@@ -6,8 +6,8 @@ func resetShape():
 	$StaticBody/CollisionShape.shape = $StaticBody/Object.mesh.create_trimesh_shape() 
 
 func _ready():
-	if $StaticBody/CollisionShape.shape :
-		resetShape()
+#	if $StaticBody/CollisionShape.shape :
+	resetShape()
 	
 	pass
 

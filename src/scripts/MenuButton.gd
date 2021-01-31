@@ -30,6 +30,8 @@ func list_files_in_directory():
 	print("Failed to open stream list")
 
 func _ready():
+	
+	
 	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
 		list_files_in_directory()
 	else:
