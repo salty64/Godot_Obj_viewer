@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Articulation Fourche.obj-00a0653b2053fcd3714fbd4329d7ddc1.mesh"
+
+[deps]
+
+files=[ "res://.import/Articulation Fourche.obj-00a0653b2053fcd3714fbd4329d7ddc1.mesh" ]
+
+source_file="res://objects/Articulation Fourche.obj"
+dest_files=[ "res://.import/Articulation Fourche.obj-00a0653b2053fcd3714fbd4329d7ddc1.mesh", "res://.import/Articulation Fourche.obj-00a0653b2053fcd3714fbd4329d7ddc1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

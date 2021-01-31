@@ -2,42 +2,25 @@ extends MenuButton
 
 var obj_icon = load("res://assets/menu_cube.svg")
 
-#var dirPath = OS.get_executable_path().get_base_dir()+"/objects/"
-var dirPath = "../objects/"
+const dirPath = "res://objects/"
 
+const extension = ".obj"
+
+const files = ["res://objects/Articulation Fourche.obj","res://objects/Articulation.obj","res://objects/Bride.obj","res://objects/Connecteur.obj","res://objects/Guide.obj","res://objects/Socle.obj"]
 
 var menu
 
 signal obj_selected (obj_name)
 
-var dir = Directory.new()
-
-func list_files_in_directory():
+func _ready():
 	menu = self.get_popup()
 	
-	if dir.list_dir_begin(true) == OK:
-		var file = dir.get_next()
-	
-		while file != '' :
-			if file.ends_with(".obj"):
-				menu.add_icon_item(obj_icon, file)
-			file = dir.get_next()
+	for file in files:
+		var name = file.get_file().get_basename()
 		
-		dir.list_dir_end()
-			
-		menu.connect("id_pressed",  self, "_on_item_pressed")
+		menu.add_icon_item(obj_icon, name)
 		
-		return
-		
-	print("Failed to open stream list")
-
-func _ready():
-	
-	
-	if dir.dir_exists(dirPath) and dir.open(dirPath) == OK:
-		list_files_in_directory()
-	else:
-		print("Failed to open directory : " + dirPath)
+	menu.connect("id_pressed",  self, "_on_item_pressed")
 
 func _on_item_pressed(id):
-	emit_signal("obj_selected", dirPath + menu.get_item_text(id))
+	emit_signal("obj_selected", dirPath + menu.get_item_text(id) + extension)
