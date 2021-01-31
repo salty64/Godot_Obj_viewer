@@ -1,6 +1,6 @@
 # ObjectViewer
 
-**Dimension taking**
+**Taking dimension**
 
 ![Interface](https://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTQ2MDYucG5n/original/vRz94m.png)
 
@@ -18,3 +18,7 @@ Mais en cette période particulière de COVID-19, nous avons développé un prog
 
 # Add-on
 A `.obj` parser utility for Godot. https://github.com/Jummit/godot-obj-parser
+
+#Release
+
+https://saltyn.itch.io/objectviewer
