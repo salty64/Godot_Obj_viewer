@@ -1,13 +1,12 @@
 # ObjectViewer
 
-**Dimension taking**
+**Taking dimension**
 
-
-![Interface](https://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTQ2MDYucG5n/original/vRz94m.png)
+![Interface](https://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTY1MTkucG5n/original/QHmjHI.png)
 
 **[EN]**  
 
-For a course called COMPUTER AIDED DESIGN (which provides the basic techniques of graphic representation through the use of CAD software), we give 3D printed objects and a calliper to take measurements and make drawings.  
+For a course called COMPUTER AIDED DESIGN (which provides the basic techniques of graphic representation through the use of CAD software), we give 3D printed objects and a calliper to take measurements and make draw.  
 
 But in this particular period of COVID-19, we have developed a simple program to give an answer to this problem of distant or virtual manipulations.
 
@@ -19,3 +18,7 @@ Mais en cette période particulière de COVID-19, nous avons développé un prog
 
 # Add-on
 A `.obj` parser utility for Godot. https://github.com/Jummit/godot-obj-parser
+
+# Release
+
+https://saltyn.itch.io/objectviewer
