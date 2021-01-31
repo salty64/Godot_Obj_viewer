@@ -87,16 +87,10 @@ func _physics_process(_delta):
 		
 		var blueprint_size = $"/root".size
 		var correction = Vector2((OS.get_window_size().x-blueprint_size.x)/2.0,(OS.get_window_size().y-blueprint_size.y)/2.0)
-#		
 
 		var ratio =Vector2(1600.0,900.0)/blueprint_size
-
-
-		
+	
 		var position2D = (get_viewport().get_mouse_position()-correction)*ratio
-		
-		
-		
 		
 		position3D = camera.project_ray_origin(position2D)
 
@@ -149,7 +143,7 @@ func _process(_delta):
 	if !tween.is_active() and timer.is_stopped() and mouse_have_move and Input.is_action_pressed("mouse_right"):
 		self.rotate_object_local(Vector3.UP, mouse_speed.x * mouse_sensitivity)
 	
-		innerGimbal.rotate_object_local(Vector3.RIGHT, mouse_speed.y * mouse_sensitivity)
+		innerGimbal.rotate_object_local(Vector3.RIGHT, - mouse_speed.y * mouse_sensitivity)
 		
 		mouse_have_move = false
 	
@@ -164,16 +158,16 @@ func _process(_delta):
 		tween.start()
 
 	if Input.is_action_pressed("ui_left"):
-		self.rotation.y = self.rotation.y + deg2rad(1)
+		self.rotation.y -= deg2rad(1)
 
 	if Input.is_action_pressed("ui_right"):
-		self.rotation.y = self.rotation.y - deg2rad(1)
+		self.rotation.y += deg2rad(1)
 
 	if Input.is_action_pressed("ui_up"):
-		innerGimbal.rotation.x = innerGimbal.rotation.x + deg2rad(1)
+		innerGimbal.rotation.x += deg2rad(1)
 
 	if Input.is_action_pressed("ui_down"):
-		innerGimbal.rotation.x = innerGimbal.rotation.x - deg2rad(1)
+		innerGimbal.rotation.x -= deg2rad(1)
 
 func _on_Zoom_Moins_pressed():
 	add_zoom(zoom_speed)
