@@ -2,6 +2,9 @@
 
 **Dimension taking**
 
+
+![Interface](`https`://img.itch.zone/aW1hZ2UvOTAyMjk0LzUwOTQ2MDYucG5n/original/vRz94m.png)
+
 **[EN]**  
 
 For a course called COMPUTER AIDED DESIGN (which provides the basic techniques of graphic representation through the use of CAD software), we give 3D printed objects and a calliper to take measurements and make drawings.  
